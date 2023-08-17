@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to Big Data and Hadoop",
+  "introduction": "Big Data refers to large and complex datasets that traditional data processing applications are unable to handle efficiently. Hadoop is an open-source framework used to store and process Big Data.",
+  "details": "Hadoop uses a distributed file system (HDFS) and a processing engine (MapReduce) to handle massive amounts of data across clusters of computers. It is widely used in data-intensive applications, data warehousing, and data analytics. Learning about Big Data and Hadoop involves understanding distributed computing concepts, HDFS architecture, and using Hadoop ecosystem tools like Hive and Pig.",
+  "image": "https://www.traininginbangalore.com/images/infographics/hadoop.jpg",
+  "key": "introduction_to_big_data_and_hadoop"
+}

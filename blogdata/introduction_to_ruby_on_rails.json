@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to Ruby on Rails",
+  "introduction": "Ruby on Rails, often referred to as Rails, is a popular web framework written in Ruby. It follows the Model-View-Controller (MVC) architecture and promotes convention over configuration.",
+  "details": "Rails provides a wide range of built-in features, allowing developers to build fully functional web applications with minimal effort. It comes with an ORM (Object-Relational Mapping) system, automated testing, and routing conventions. Learning Ruby on Rails involves understanding ActiveRecord, views, controllers, and working with gems.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/800px-Ruby_On_Rails_Logo.svg.png",
+  "key": "introduction_to_ruby_on_rails"
+}

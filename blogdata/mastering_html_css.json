@@ -1,0 +1,7 @@
+{
+  "title": "Mastering HTML and CSS",
+  "introduction": "HTML and CSS are fundamental building blocks of web development. Mastering these technologies is essential for creating well-structured and visually appealing web pages.",
+  "details": "HTML (Hypertext Markup Language) is used to define the structure and content of a webpage, while CSS (Cascading Style Sheets) is used to control the presentation and layout. Learning HTML involves understanding elements, attributes, and semantic tags. CSS, on the other hand, involves learning selectors, properties, and various layout techniques.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/800px-CSS3_logo_and_wordmark.svg.png",
+  "key": "mastering_html_css"
+}

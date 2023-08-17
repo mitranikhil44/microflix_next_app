@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to Flutter App Development",
+  "introduction": "Flutter is an open-source UI framework by Google used for building natively compiled applications for mobile, web, and desktop from a single codebase.",
+  "details": "Flutter provides a rich set of pre-designed widgets, expressive UI components, and a hot reload feature that allows developers to see changes instantly. It uses the Dart programming language and is widely adopted for cross-platform mobile app development. Learning Flutter involves understanding widgets, navigation, state management, and platform-specific integrations.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Google-flutter-logo.png/800px-Google-flutter-logo.png",
+  "key": "introduction_to_flutter_app_development"
+}

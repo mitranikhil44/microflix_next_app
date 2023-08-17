@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to PHP and MySQL",
+  "introduction": "PHP is a server-side scripting language widely used for web development. It can be embedded into HTML and is known for its simplicity and ease of integration with databases.",
+  "details": "MySQL is an open-source relational database management system that works seamlessly with PHP to store and retrieve data. Learning PHP involves understanding variables, control structures, functions, and working with forms. MySQL fundamentals include creating databases, tables, and performing CRUD (Create, Read, Update, Delete) operations.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/800px-PHP-logo.svg.png",
+  "key": "introduction_to_php_and_mysql"
+}

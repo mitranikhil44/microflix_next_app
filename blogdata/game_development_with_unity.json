@@ -1,0 +1,7 @@
+{
+  "title": "Game Development with Unity",
+  "introduction": "Unity is a powerful game development engine used to create 2D and 3D games for various platforms, including PC, consoles, mobile devices, and virtual reality.",
+  "details": "Unity provides a user-friendly interface and a vast asset store, making it accessible to both beginners and experienced game developers. It supports scripting in C#, and learning Unity involves understanding scenes, game objects, physics, and animation systems.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Unity_Technologies_logo.svg/800px-Unity_Technologies_logo.svg.png",
+  "key": "game_development_with_unity"
+}

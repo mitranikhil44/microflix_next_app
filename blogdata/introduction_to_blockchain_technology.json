@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to Blockchain Technology",
+  "introduction": "Blockchain is a decentralized and distributed ledger technology that records transactions across multiple computers in a secure and tamper-resistant manner.",
+  "details": "Blockchains are best known for their application in cryptocurrencies like Bitcoin. However, they have potential use cases in various industries, including supply chain management, healthcare, and voting systems. Learning about blockchain involves understanding how blocks are linked, consensus mechanisms, and smart contracts.",
+  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Blockchain.svg/800px-Blockchain.svg.png",
+  "key": "introduction_to_blockchain_technology"
+}

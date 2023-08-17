@@ -1,0 +1,7 @@
+{
+  "title": "Introduction to DevOps",
+  "introduction": "DevOps is a set of practices that combine software development (Dev) and IT operations (Ops) to increase the efficiency and reliability of the software development lifecycle.",
+  "details": "DevOps aims to automate and streamline the process of software development, testing, and deployment, enabling faster and more frequent releases. It emphasizes collaboration between development and operations teams, leading to improved communication and shared responsibilities. Learning about DevOps involves understanding continuous integration, continuous delivery, infrastructure as code, and tools like Jenkins and Docker.",
+  "image": "https://hexaware.com/wp-content/uploads/2022/02/Our-DevOps-Services.png",
+  "key": "introduction_to_devops"
+}
