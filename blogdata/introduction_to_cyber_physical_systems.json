@@ -1,7 +1,0 @@
-{
-  "title": "Introduction to Cyber-Physical Systems",
-  "introduction": "Cyber-Physical Systems (CPS) are integrated systems of computational elements and physical processes, tightly coupled through feedback loops.",
-  "details": "CPS combine hardware, software, sensors, and actuators to monitor and control physical processes in real-time. They find applications in autonomous vehicles, smart grids, and healthcare systems. Learning about cyber-physical systems involves understanding control theory, real-time computing, and security challenges in CPS deployment.",
-  "image": "https://ars.els-cdn.com/content/image/1-s2.0-S0166361517304244-gr1.jpg",
-  "key": "introduction_to_cyber_physical_systems"
-}

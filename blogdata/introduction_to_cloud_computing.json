@@ -1,7 +1,0 @@
-{
-  "title": "Introduction to Cloud Computing",
-  "introduction": "Cloud computing is the delivery of on-demand computing resources over the internet. It includes services like servers, storage, databases, networking, and software.",
-  "details": "Cloud computing offers scalability, flexibility, and cost-efficiency as resources can be easily provisioned and released based on demand. Public cloud providers like AWS, Microsoft Azure, and Google Cloud offer a wide range of services to businesses and individuals. Learning about cloud computing involves understanding different cloud models (public, private, hybrid), cloud service providers, and cloud security.",
-  "image": "https://ostechnix.com/wp-content/uploads/2021/12/Cloud-Computing.png",
-  "key": "introduction_to_cloud_computing"
-}

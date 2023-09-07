@@ -1,12 +1,26 @@
-import fs from "fs/promises";
+// pages/api/fetchScrapeData.js
+import mongoose from 'mongoose';
+import { connectToDatabase } from './db';
+import { Scrape } from './schema/scrapeSchema';
 
 export default async function handler(req, res) {
-  try {
-    const { slug } = req.query;
-    const data = await fs.readFile(`blogdata/${slug}.json`, "utf-8");
-    const jsonData = JSON.parse(data);
-    res.status(200).json(jsonData);
-  } catch (error) {
-    res.status(500).json({ error: "No Blogs Found" });
-  }
+    try {
+        await connectToDatabase(); // Establish the database connection
+
+        const { slug } = req.query;
+
+        // Query the "scrape" collection for data with the matching slug
+        const jsonData = await Scrape.findOne({ slug });
+
+        if (jsonData) {
+            res.status(200).json(jsonData);
+        } else {
+            res.status(404).json({ error: 'No Blogs Found' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Error fetching data' });
+    } finally {
+        mongoose.connection.close(); // Close the database connection
+    }
 }

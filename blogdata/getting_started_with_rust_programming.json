@@ -1,7 +1,0 @@
-{
-  "title": "Getting Started with Rust Programming",
-  "introduction": "Rust is a systems programming language focused on safety, performance, and concurrency. It is designed to prevent common programming errors like null pointer dereferences and data races.",
-  "details": "Rust uses a strict ownership model and a powerful borrow checker to ensure memory safety and prevent data races. It provides low-level control like C or C++, but with better safety guarantees. Learning Rust involves understanding its ownership model, borrowing rules, and writing concurrent and safe code.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/800px-Rust_programming_language_black_logo.svg.png",
-  "key": "getting_started_with_rust_programming"
-}

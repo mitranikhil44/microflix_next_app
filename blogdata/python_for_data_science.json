@@ -1,7 +1,0 @@
-{
-  "title": "Python for Data Science",
-  "introduction": "Python has become the go-to programming language for data science and machine learning. It offers an extensive ecosystem of libraries and tools that make data analysis and visualization more accessible.",
-  "details": "Data science with Python involves using libraries like NumPy, Pandas, and Matplotlib to manipulate and analyze data. Additionally, Python provides powerful frameworks such as TensorFlow and Scikit-learn for machine learning tasks. Learning Python for data science opens up various career opportunities in fields like data analysis, artificial intelligence, and predictive modeling.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/800px-Python-logo-notext.svg.png",
-  "key": "python_for_data_science"
-}

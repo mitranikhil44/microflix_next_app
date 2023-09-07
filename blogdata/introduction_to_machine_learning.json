@@ -1,7 +1,0 @@
-{
-  "title": "Introduction to Machine Learning",
-  "introduction": "Machine learning is a subset of artificial intelligence that focuses on building systems that can learn from data and make predictions or decisions based on that learning.",
-  "details": "Machine learning algorithms can be broadly categorized into supervised, unsupervised, and reinforcement learning. They find applications in various domains, including Image recognition, natural language processing, and recommendation systems. Learning about machine learning involves understanding algorithms like linear regression, decision trees, support vector machines, and neural networks.",
-  "image": "https://www.fsm.ac.in/blog/wp-content/uploads/2022/08/ml-e1610553826718.jpg",
-  "key": "introduction_to_machine_learning"
-}

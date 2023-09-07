@@ -1,7 +1,0 @@
-{
-  "title": "Web Development with Node.js",
-  "introduction": "Node.js is a server-side JavaScript runtime that allows developers to build scalable and high-performance applications. It uses an event-driven, non-blocking I/O model, making it ideal for real-time applications.",
-  "details": "With Node.js, developers can use JavaScript on both the client and server sides, making it a popular choice for full-stack web development. It comes with a vast ecosystem of modules and packages available through npm (Node Package Manager). Learning Node.js involves understanding asynchronous programming, handling HTTP requests, and using various built-in modules.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/800px-Node.js_logo.svg.png",
-  "key": "web_development_with_node_js"
-}

@@ -1,7 +1,0 @@
-{
-  "title": "Getting Started with TypeScript",
-  "introduction": "TypeScript is a superset of JavaScript that adds static typing to the language. It aims to improve code quality, maintainability, and productivity for large-scale applications.",
-  "details": "TypeScript code is transpiled to JavaScript, ensuring compatibility with all JavaScript environments. It provides features like interfaces, type annotations, and classes that aid in building robust applications. Learning TypeScript involves understanding its type system, compiler configurations, and integration with popular frameworks like Angular and React.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/800px-Typescript_logo_2020.svg.png",
-  "key": "getting_started_with_typescript"
-}

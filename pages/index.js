@@ -1,20 +1,30 @@
-
-export default function Home() {
+import React, { useState } from "react";
+import Movies_Collection from "../components/Movie_Collection"
+export default function Home(props) {
+  const [hollywood, setHollywood] = useState(props.parsedData.data || []);
+  const [adult, setAdult] = useState(props.parseAdultData.data || []);
   return (
     <main>
-      <div className='text-center'>
-        <h1 className="text-2xl my-4">Coder Bugs</h1>
-        <p>A blog for coder by a coder</p>
-
-        <div className="blogs py-6 text-start">
-          <h4 className="text-base font-semibold my-4">How to learn JavaScript 2023</h4>
-            <p>Javascirpt is used to design logic for the web</p>
-          <h4 className="text-base font-semibold my-4">How to learn Python 2023</h4>
-            <p>Python is used to build programes for the software & web.</p>
-          <h4 className="text-base font-semibold my-4">How to learn Next Js 2023</h4>
-            <p>Javascirpt is a framework of React Js, it's used to build awesome web applications.</p>
-        </div>
-      </div>
+      <Movies_Collection data={hollywood} collectionName={"Hollywood"} />
+      <Movies_Collection data={adult} collectionName={"Adult"} />
     </main>
   )
+}
+
+export async function getServerSideProps() {
+  try {
+    const hollywood = await fetch(`http://localhost:3000/api/blogs/?category=hollywood&skip=0&limit=24`);
+    const adult = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/adult&skip=0&limit=24`);
+    const parsedData = await hollywood.json();
+    const parseAdultData = await adult.json();
+    return {
+      props: { parsedData, parseAdultData },
+    };
+  } catch (error) {
+    return {
+      props: {
+        movies: { files: [], count: 0, total: 0 },
+      },
+    };
+  }
 }

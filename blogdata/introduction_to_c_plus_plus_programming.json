@@ -1,7 +1,0 @@
-{
-  "title": "Introduction to C++ Programming",
-  "introduction": "C++ is a general-purpose programming language known for its high performance, extensive libraries, and object-oriented features. It is widely used in system programming, game development, and more.",
-  "details": "Learning C++ involves understanding syntax, data types, control structures, and object-oriented concepts like classes, inheritance, and polymorphism. It also provides support for low-level memory manipulation and direct hardware access, making it suitable for performance-critical applications.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/800px-ISO_C%2B%2B_Logo.svg.png",
-  "key": "introduction_to_c_plus_plus_programming"
-}

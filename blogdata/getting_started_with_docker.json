@@ -1,7 +1,0 @@
-{
-  "title": "Getting Started with Docker",
-  "introduction": "Docker is a popular platform used to create, deploy, and run applications inside containers. Containers enable applications to run consistently across different environments.",
-  "details": "With Docker, developers can package an application along with its dependencies and configurations into a container Image. These Images can be deployed on any platform that supports Docker, making application deployment more efficient and consistent. Learning Docker involves understanding container concepts, Dockerfile, and Docker Compose for managing multi-container applications.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/800px-Docker_%28container_engine%29_logo.svg.png",
-  "key": "getting_started_with_docker"
-}

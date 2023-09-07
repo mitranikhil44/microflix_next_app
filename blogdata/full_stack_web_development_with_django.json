@@ -1,7 +1,0 @@
-{
-  "title": "Full-Stack Web Development with Django",
-  "introduction": "Django is a high-level Python web framework that simplifies the process of building web applications. It follows the Model-View-Template (MVT) pattern and emphasizes rapid development.",
-  "details": "With Django, developers can create feature-rich web applications with built-in admin interfaces, authentication, and database migrations. It provides tools for URL routing, form handling, and template rendering. Learning full-stack web development with Django involves understanding models, views, templates, and integrating with front-end frameworks like React or Vue.js.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Django_logo.svg/800px-Django_logo.svg.png",
-  "key": "full_stack_web_development_with_django"
-}

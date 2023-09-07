@@ -1,11 +1,25 @@
-import * as fs from "fs";
+// postContact.js
+import { connectToDatabase } from './db';
+import { Contact } from './schema/contactSchema';
 
-export default async function handler(req, res){
-    if(req.method === "POST"){
-        let data = await fs.promises.readdir("contact_us");
-        fs.promises.writeFile(`contact_us/${data.length + 1}.json`, JSON.stringify(req.body))
-        res.status(404).json([{"Success": "Thank You"}]);
-    }else{
-        res.status(404).json([{"Error": "Some Error Occered"}]);
+export default async function handler(req, res) {
+    try {
+        await connectToDatabase();
+
+        if (req.method === 'POST') {
+            const newContact = new Contact({
+                name: req.body.name,
+                email: req.body.email,
+                message: req.body.message,
+            });
+
+            await newContact.save();
+            res.status(200).json({ Success: 'Thank You' });
+        } else {
+            res.status(400).json({ Error: 'Invalid Request Method' });
+        }
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ Error: 'Internal Server Error' });
     }
-} 
+}

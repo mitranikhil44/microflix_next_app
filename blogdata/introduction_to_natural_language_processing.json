@@ -1,7 +1,0 @@
-{
-  "title": "Introduction to Natural Language Processing (NLP)",
-  "introduction": "Natural Language Processing (NLP) is a branch of artificial intelligence that focuses on the interaction between humans and computers using natural language.",
-  "details": "NLP enables computers to understand, interpret, and generate human language. It finds applications in virtual assistants, chatbots, sentiment analysis, machine translation, and more. Learning about NLP involves understanding text preprocessing, language models, and popular NLP libraries like NLTK and spaCy.",
-  "image": "https://www.winklix.com/blog/wp-content/uploads/2022/07/NLP-e1595362635214.jpg",
-  "key": "introduction_to_natural_language_processing"
-}

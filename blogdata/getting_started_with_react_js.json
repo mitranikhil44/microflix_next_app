@@ -1,7 +1,0 @@
-{
-  "title": "Getting Started with React.js",
-  "introduction": "React.js is a popular JavaScript library for building user interfaces. It allows developers to create reusable UI components, making the development process more efficient.",
-  "details": "React.js is often used in single-page applications to create interactive and responsive user interfaces. It follows a component-based architecture, where each component manages its state and can be easily composed to build complex UIs. Learning React.js involves understanding JSX syntax, state management, lifecycle methods, and handling events.",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/800px-React-icon.svg.png",
-  "key": "getting_started_with_react_js"
-}
