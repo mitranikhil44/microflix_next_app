@@ -13,7 +13,7 @@ const Series = (props) => {
   const fetchMoreData = async () => {
     try {
       const updatedSkip = skip + limit;
-      const data = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/seasons&skip=${updatedSkip}&limit=${limit}`);
+      const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/seasons&skip=${updatedSkip}&limit=${limit}`);
       const parsedData = await data.json();
 
       if (Array.isArray(parsedData.data)) {
@@ -63,7 +63,7 @@ const Series = (props) => {
 
 export async function getServerSideProps() {
   try {
-    const data = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/seasons&skip=0&limit=24`);
+    const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/seasons&skip=0&limit=24`);
     const series = await data.json();
     return {
       props: { series },

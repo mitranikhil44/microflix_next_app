@@ -13,7 +13,7 @@ const Movies = (props) => {
   const fetchMoreData = async () => {
     try {
       const updatedSkip = skip + limit;
-      const data = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/adult&skip=${updatedSkip}&limit=${limit}`);
+      const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/adult&skip=${updatedSkip}&limit=${limit}`);
       const parsedData = await data.json();
 
       if (Array.isArray(parsedData.data)) {
@@ -63,7 +63,7 @@ const Movies = (props) => {
 
 export async function getServerSideProps() {
   try {
-    const data = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/adult&skip=0&limit=12`);
+    const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/adult&skip=0&limit=12`);
     const movies = await data.json();
     return {
       props: { movies },

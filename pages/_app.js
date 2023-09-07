@@ -1,29 +1,31 @@
-import "../styles/globals.css";
 import React, { useState, useEffect } from 'react';
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { Scrollbars } from 'react-custom-scrollbars'; // Import the Scrollbars component
 
 export const metadata = {
-  title: "Coder Bugs",
-  description: "A blog for a coder by a coder",
-  scriptTag: '<script async="async" data-cfasync="false" src="//revelationschemes.com/8a8462267705e39989e95218ff6f6dae/invoke.js"></script>'
+  title: 'Coder Bugs',
+  description: 'A blog for a coder by a coder',
+  scriptTag:
+    '<script async="async" data-cfasync="false" src="//revelationschemes.com/8a8462267705e39989e95218ff6f6dae/invoke.js"></script>',
 };
 
 function MyApp({ Component, pageProps }) {
-  const [ads, setAds] = useState([])
+  const [ads, setAds] = useState([]);
+
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const adsData = await fetch('http://localhost:3000/api/getads/');
+        const adsData = await fetch('https://microflix-next-app.vercel.app/api/getads/');
         const parsedAdsData = await adsData.json();
 
         if (Array.isArray(parsedAdsData)) {
           setAds(parsedAdsData);
         } else {
-          console.error("Fetched ads data is not an array:", parsedAdsData);
+          console.error('Fetched ads data is not an array:', parsedAdsData);
         }
       } catch (error) {
-        console.error("Error fetching ads data:", error);
+        console.error('Error fetching ads data:', error);
       }
     };
 
@@ -31,13 +33,27 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
-      <div className="m-auto">
-        <Navbar />
+    <div className="m-auto">
+      <Navbar />
+      <Scrollbars
+        autoHide
+        autoHideTimeout={1000}
+        autoHideDuration={200}
+        renderThumbVertical={({ style, ...props }) => (
+          <div
+            {...props}
+            style={{
+              ...style,
+              backgroundColor: '#4a90e2',
+              borderRadius: '4px',
+            }}
+          />
+        )}
+      >
         <div className="sm:gridClass">
           <div>
-            <div className='mx-auto'>
-              {ads && ads.map((ad, index) => (
+            <div className="mx-auto">
+              {ads.map((ad, index) => (
                 <div key={index + 1}>
                   <div className="sm:hidden">
                     {ad.horizontal_banner && ad.horizontal_banner.adult.mobile && (
@@ -56,14 +72,14 @@ function MyApp({ Component, pageProps }) {
                   </div>
                 </div>
               ))}
-            </div>
-            <hr />
-            <div className="p-[3%] ">
-              <Component {...pageProps} />
+              <hr />
+              <div className="p-[3%] ">
+                <Component {...pageProps} />
+              </div>
             </div>
           </div>
           <div>
-            {ads && ads.map((ad, index) => (
+            {ads.map((ad, index) => (
               <div key={index + 1}>
                 <div className="hidden sm:block lg:hidden">
                   {ad.vertical_banner && ad.vertical_banner.adult.tablet && (
@@ -79,13 +95,13 @@ function MyApp({ Component, pageProps }) {
             ))}
           </div>
         </div>
-        <div className="flex justify-center items-center flex-wrap">
-          <div id="container-8a8462267705e39989e95218ff6f6dae"></div>
-        </div>
-        <hr />
-        <footer className="text-center ">&copy; 2023 microflix. All rights reserved.</footer>
+      </Scrollbars>
+      <div className="flex justify-center items-center flex-wrap">
+        <div id="container-8a8462267705e39989e95218ff6f6dae"></div>
       </div>
-    </>
+      <hr />
+      <Footer />
+    </div>
   );
 }
 
