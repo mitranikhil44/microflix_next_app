@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Scrollbars } from 'react-custom-scrollbars'; // Import the Scrollbars component
 
 export const metadata = {
   title: 'Coder Bugs',
@@ -16,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const adsData = await fetch('https://microflix-next-app.vercel.app/api/getads/');
+        const adsData = await fetch('http://localhost:3000/api/getads/');
         const parsedAdsData = await adsData.json();
 
         if (Array.isArray(parsedAdsData)) {
@@ -35,21 +34,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className="m-auto">
       <Navbar />
-      <Scrollbars
-        autoHide
-        autoHideTimeout={1000}
-        autoHideDuration={200}
-        renderThumbVertical={({ style, ...props }) => (
-          <div
-            {...props}
-            style={{
-              ...style,
-              backgroundColor: '#4a90e2',
-              borderRadius: '4px',
-            }}
-          />
-        )}
-      >
         <div className="sm:gridClass">
           <div>
             <div className="mx-auto">
@@ -95,7 +79,6 @@ function MyApp({ Component, pageProps }) {
             ))}
           </div>
         </div>
-      </Scrollbars>
       <div className="flex justify-center items-center flex-wrap">
         <div id="container-8a8462267705e39989e95218ff6f6dae"></div>
       </div>
