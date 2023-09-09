@@ -30,7 +30,7 @@ const Navbar = () => {
 
   const fetchSuggestions = async (query) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/search_result/?query=${query}`);
+      const response = await fetch(`https://microflix-next-app.vercel.app/api/search_result/?query=${query}`);
       const data = await response.json();
 
       if (Array.isArray(data.suggestions)) {
