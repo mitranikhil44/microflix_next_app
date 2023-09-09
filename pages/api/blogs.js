@@ -6,35 +6,34 @@ export default async function handler(req, res) {
   try {
     await connectToDatabase(); // Establish the database connection
 
-    const skip = parseInt(req.query.skip) || 0;
-    const limit = parseInt(req.query.limit) || 24;
-    const category = req.query.category || 'hollywood';
+    const skip = parseInt(req.query.skip);
+    const limit = parseInt(req.query.limit);
+    const category = req.query.category;
 
-    let filteredData;
+    let filterConditions = {};
 
-    // Fetch all files
-    const allFiles = await Scrape.find();
-
-    if (category === 'hollywood') {
-      // Filter by All Movies
-      filteredData = allFiles.slice(skip, skip + limit);
-    } else if (category === 'hollywood/movies') {
+    if (category === 'hollywood/movies') {
       // Filter by Movies
-      filteredData = allFiles.filter(file => !file.title.toLowerCase().includes('season'));
-      filteredData = filteredData.slice(skip, skip + limit);
+      filterConditions.title = { $not: /season/i };
     } else if (category === 'hollywood/seasons') {
       // Filter by Seasons
-      filteredData = allFiles.filter(file => file.title.toLowerCase().includes('season'));
-      filteredData = filteredData.slice(skip, skip + limit);
+      filterConditions.title = /season/i;
     } else if (category === 'hollywood/adult') {
       // Filter by adult
-      filteredData = allFiles.filter(file => file.title.toLowerCase().includes('18+'));
-      filteredData = filteredData.slice(skip, skip + limit);
-    } else {
+      filterConditions.title = /18\+/i;
+    } else if (category !== 'hollywood') {
       // Unknown category
       res.status(400).json({ error: 'Invalid category' });
       return;
     }
+
+    // Query the database with pagination and filter conditions
+    const query = Scrape.find(filterConditions)
+      .skip(skip)
+      .limit(limit);
+
+    // Execute the query
+    const filteredData = await query.exec();
 
     const response = {
       data: filteredData,

@@ -13,8 +13,8 @@ export default function Home(props) {
 
 export async function getServerSideProps() {
   try {
-    const hollywood = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood&skip=0&limit=24`);
-    const adult = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/adult&skip=0&limit=24`);
+    const hollywood = await fetch(`http://localhost:3000/api/blogs/?category=hollywood&skip=0&limit=24`);
+    const adult = await fetch(`http://localhost:3000/api/blogs/?category=hollywood/adult&skip=0&limit=24`);
     const parsedData = await hollywood.json();
     const parseAdultData = await adult.json();
     return {

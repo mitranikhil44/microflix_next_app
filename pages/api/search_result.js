@@ -9,7 +9,6 @@ export default async function handler(req, res) {
     const suggestions = await Scrape.find({
       title: { $regex: new RegExp(query, 'i') },
     })
-      .limit(10);
 
     const response = {
       suggestions: suggestions.map((suggestion) => suggestion),

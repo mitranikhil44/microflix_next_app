@@ -40,7 +40,7 @@ const Movies = (props) => {
         >
           <div className="grid grid-cols-2 mt-4 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-hidden">
             {movie && movie.map((element) => (
-              <Link key={element.slug} href={`/blogpost/${element.slug}`}>
+              <Link key={element.slug} href={`/content/${element.slug}`}>
                 <div className="to-black relative overflow-hidden rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-transform duration-300 ease-in-out h-[100%]">
                   <div className="w-full overflow-hidden flex items-center justify-center cropped-image">
                     <img

@@ -46,15 +46,23 @@ const Navbar = () => {
   };
 
   const submit = async (e) => {
-    e.preventDefault();
-    await router.push({
-      pathname: '/query',
-      query: {
-        data: searchTerm,
-        searchResult: JSON.stringify(searchResult),
-      },
-    });
-    closeModal();
+    const pushData = async () =>{      
+      await router.push({
+        pathname: '/query',
+        query: {
+          data: searchTerm,
+          searchResult: JSON.stringify(searchResult),
+        },
+      });
+      setSearchTerm("");
+      closeModal();
+    }
+    if (!e) {
+      pushData()
+    }else{
+      e.preventDefault();
+      pushData()
+    }
   }
 
   const handleSuggestionClick = (suggestion) => {

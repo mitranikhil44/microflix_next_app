@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 const Series = (props) => {
   const [series, setSeries] = useState(props.series.data || []);
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(24);
+  const [limit, setLimit] = useState(12);
   const [hasMore, setHasMore] = useState(true);
 
 
@@ -40,7 +40,7 @@ const Series = (props) => {
         >
           <div className="grid grid-cols-2 mt-4 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-hidden">
             {series && series.map((element, index) => (
-              <Link key={index + 1} href={`/blogpost/${element.slug}`}>
+              <Link key={index + 1} href={`/content/${element.slug}`}>
                 <div className="to-black relative overflow-hidden rounded-lg shadow-lg hover:scale-105 cursor-pointer transition-transform duration-300 ease-in-out h-[100%]">
                   <div className="w-full overflow-hidden flex items-center justify-center cropped-image">
                     <img
