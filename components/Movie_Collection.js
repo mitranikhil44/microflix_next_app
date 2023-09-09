@@ -63,7 +63,7 @@ const Movies_Collection = (props) => {
         <div className="flex">
 
         {props.data && props.data.map((element) => (
-          <Link key={element.slug} href={`/content/${element.slug}`} target="_blank">
+          <Link key={element.slug} href={`/content/${element.slug}`}>
             <div className="hover:scale-110 w-24 xs:w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48 m-2 overflow-auto cursor-pointer">
               <div>
                 <img
