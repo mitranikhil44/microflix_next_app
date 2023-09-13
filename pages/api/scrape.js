@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
 
     (async () => {
-        setTimeout(() => {
+        setTimeout(async() => {
             await connectToDatabase(); // Call the connectToDatabase function to establish the MongoDB connection
             const browser = await puppeteer.launch();
             let scrapingStatus = ''; // Variable to store scraping status
