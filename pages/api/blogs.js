@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { connectToDatabase } from './db';
-import { Scrape } from './schema/scrapeSchema';
+import { connectToDatabase } from './database/db';
+import { Scrape } from './database/scrapeSchema';
 
 export default async function handler(req, res) {
   try {

@@ -5,8 +5,8 @@ export default function Home(props) {
   const [adult, setAdult] = useState(props.parseAdultData.data || []);
   return (
     <main>
-      <Movies_Collection data={hollywood} collectionName={"Hollywood"} />
-      <Movies_Collection data={adult} collectionName={"Adult"} />
+      <Movies_Collection data={hollywood} collectionName={"Hollywood"} linkPath="/movies" />
+      <Movies_Collection data={adult} collectionName={"Adult"} linkPath="/adult" />
     </main>
   )
 }
