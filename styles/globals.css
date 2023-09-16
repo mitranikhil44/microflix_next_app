@@ -8,7 +8,7 @@
   color: white;
 }
 
-.cropped-image {
+/* .cropped-image {
   width: desired-width;
   height: desired-height;
   overflow: hidden;
@@ -18,7 +18,7 @@
   width: image-width;
   height: image-height;
   margin: -15% 0px 0 0;
-  }
+  } */
 
   .gridClass{
     display: grid;

@@ -61,17 +61,17 @@ const Movies_Collection = (props) => {
         </div>
       </Link>
       <hr className="p-3" />
-      <div ref={scrollContainerRef} className="flex items-center overflow-x-auto overflow-y-hidden scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thin scrollbar-thumb-[#7d5c20] scrollbar-track-gray-100 h-60 xs:h-64 sm:h-[17rem] md:h-[19rem] lg:h-[20rem] xl:h-[23rem] 2xl:h-[25rem]">
+      <div ref={scrollContainerRef} className="flex items-center overflow-x-auto overflow-y-hidden scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thin scrollbar-thumb-[#7d5c20] scrollbar-track-gray-100">
         <div className="flex">
 
           {props.data && props.data.map((element) => (
             <Link key={element.slug} href={`/content/${element.slug}`}>
-              <div className="hover:scale-110 w-24 xs:w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48 m-2 overflow-auto cursor-pointer">
+              <div className="hover:scale-110 w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48 m-2 overflow-auto ">
                 <div>
                   <img
                     src={element.image}
                     alt="Image"
-                    className="rounded-lg h-40 xs:h-40 sm:h-48 md:h-52 lg:h-56 xl:h-64 2xl:h-[17rem]"
+                    className="rounded-lg"
                   />
                 </div>
                 <div className="text-center text-xs md:text-sm lg:text-base xl:text-lg py-3">
@@ -81,7 +81,7 @@ const Movies_Collection = (props) => {
             </Link>
           ))}
         </div>
-        <div
+        <Link href={props.linkPath}
           className="bg-[rgba(255,255,255,0.05)] hover:opacity-90 text-gray-500 mr-2 rounded-full p-4 lg:p-5 xl:p-6 2xl:p-7"
         >
           <svg
@@ -94,7 +94,7 @@ const Movies_Collection = (props) => {
           >
             <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
           </svg>
-        </div>
+        </Link>
       </div>
     </div>
   );

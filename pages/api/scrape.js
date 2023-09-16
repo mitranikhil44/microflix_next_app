@@ -1,19 +1,20 @@
 import puppeteer from 'puppeteer';
 import connectToDatabase from './database/db'; // Import the connectToDatabase function
 
-import { Hollywood, Bollywood } from './database/models';
+import { Adult } from './database/models';
 
-export default async function handler(req, res) {
     const BASE_URLS = {
-        Hollywood: 'https://vegamovies.im/page/',
-        Bollywood: 'https://dotmovies.skin/page/',
+        // Hollywood: 'https://vegamovies.im/page/',
+        // Bollywood: 'https://dotmovies.skin/page/',
+        Adult: 'https://xprimehub.pro/page/',
     };
 
     const ARTICLE_SELECTOR = 'article';
 
     const TOTAL_PAGES = {
-        Hollywood: 987,
-        Bollywood: 267,
+        // Hollywood: 987,
+        // Bollywood: 267,
+        Adult: 161,
     };
 
 
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
             for (let pageNumber = 1; pageNumber <= totalPages; pageNumber++) {
                 const url = `${baseUrl}${pageNumber}/`;
                 scrapingStatus = `Scraping page no. ${pageNumber}`;
+                console.log(scrapingStatus);
                 try {
                     const page = await browser.newPage();
                     await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -94,17 +96,16 @@ export default async function handler(req, res) {
         try {
             // Parallelize the scraping of Hollywood and Bollywood pages
             await Promise.all([
-                scrapeModel(BASE_URLS.Hollywood, Hollywood, TOTAL_PAGES.Hollywood),
-                scrapeModel(BASE_URLS.Bollywood, Bollywood, TOTAL_PAGES.Bollywood),
+                scrapeModel(BASE_URLS.Adult, Adult, TOTAL_PAGES.Adult),
+                // scrapeModel(BASE_URLS.Bollywood, Bollywood, TOTAL_PAGES.Bollywood),
             ]);
 
             // Send a response after scraping is completed
-            res.status(200).send(`Scraping and processing completed. ${scrapingStatus}`);
+            console.log(`Scraping and processing completed. ${scrapingStatus}`);
         } catch (error) {
             console.error('Error:', error.message);
-            res.status(404).send('Error occurred during scraping.');
+            console.log('Error occurred during scraping.');
         } finally {
             await browser.close();
         }
     })();
-}

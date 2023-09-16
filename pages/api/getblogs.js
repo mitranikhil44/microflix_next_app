@@ -1,7 +1,5 @@
-// pages/api/fetchScrapeData.js
-import mongoose from 'mongoose';
-import { connectToDatabase } from './database/db';
-import { Scrape } from './database/scrapeSchema';
+import connectToDatabase from './database/db';
+import { Hollywood, Bollywood } from './database/scrapeSchema';
 
 export default async function handler(req, res) {
     try {
@@ -9,10 +7,12 @@ export default async function handler(req, res) {
 
         const { slug } = req.query;
 
-        // Query the "scrape" collection for data with the matching slug
-        const jsonData = await Scrape.findOne({ slug });
+        // Query both the "Hollywood" and "Bollywood" collections for data with the matching slug
+        const hollywoodData = await Hollywood.findOne({ slug });
+        const bollywoodData = await Bollywood.findOne({ slug });
 
-        if (jsonData) {
+        if (hollywoodData || bollywoodData) {
+            const jsonData = hollywoodData || bollywoodData;
             res.status(200).json(jsonData);
         } else {
             res.status(404).json({ error: 'No Blogs Found' });
@@ -20,7 +20,5 @@ export default async function handler(req, res) {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Error fetching data' });
-    } finally {
-        mongoose.connection.close(); // Close the database connection
     }
 }

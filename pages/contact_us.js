@@ -4,7 +4,7 @@ function Contact() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = {name, email, contact, message};
-        const url = `https://microflix-next-app.vercel.app/api/postcontact`
+        const url = `http://localhost:3000/api/postcontact`
 
         fetch(url, {
             method: "POST",
@@ -44,28 +44,28 @@ function Contact() {
     const [contact, setContact] = useState();
     const [message, setMessage] = useState();
     return (
-        <form onSubmit={handleSubmit} className="w-full flex items-center justify-center my-12">
-            <div className="bg-white shadow rounded py-12 lg:px-28 px-8">
-                <p className="md:text-3xl text-xl font-bold leading-7 text-center text-gray-700">Let’s chat and get a quote!</p>
+        <form onSubmit={handleSubmit} className="border rounded-lg w-full flex items-center justify-center my-12">
+            <div className="shadow rounded py-12 lg:px-28 px-8">
+                <p className="md:text-3xl text-xl font-bold leading-7 text-center text-gray-100">Let’s chat and get a quote!</p>
                 <div className="md:flex items-center mt-12">
                     <div className="md:w-72 flex flex-col">
-                        <label for="name" className="text-base font-semibold leading-none text-gray-800">Name</label>
+                        <label htmlFor="name" className="text-base font-semibold leading-none text-gray-100">Name <span className="text-red-600">*</span></label>
                         <input tabIndex={0} id="name" name="name" type="name" value={name} onChange={handleChange} className="text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 "/>
                     </div>
                     <div className="md:w-72 flex flex-col md:ml-6 md:mt-0 mt-4">
-                        <label for="email" className="text-base font-semibold leading-none text-gray-800">Email Address</label>
+                        <label htmlFor="email" className="text-base font-semibold leading-none text-gray-100">Email Address <span className="text-red-600">*</span></label>
                         <input tabIndex={0} id="email" name="email" type="email" value={email} onChange={handleChange} className="text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100" />
                     </div>
                 </div>
                 <div className="md:flex items-center mt-8">
                     <div className="md:w-72 flex flex-col">
-                        <label for="contact" className="text-base font-semibold leading-none text-gray-800">Contact No.</label>
+                        <label htmlFor="contact" className="text-base font-semibold leading-none text-gray-100">Contact No. <span className="text-sm">(optional)</span></label>
                         <input tabIndex={0} id="contact" name="contact" role="input" type="text" value={contact} onChange={handleChange} className="text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100 "/>
                     </div>
                 </div>
                 <div>
                     <div className="w-full flex flex-col mt-8">
-                        <label for='message' className="text-base font-semibold leading-none text-gray-800">Message</label>
+                        <label htmlFor='message' className="text-base font-semibold leading-none text-gray-100">Message <span className="text-red-600">*</span></label>
                         <textarea tabIndex={0} id="message" name="message" role="textbox" type="textarea" value={message} onChange={handleChange} className="h-36 text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100 resize-none" />
                     </div>
                 </div>

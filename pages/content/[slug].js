@@ -45,16 +45,6 @@ export default function BlogPost(props) {
         {otherContent && <div className="text-xs xs:text-sm md:text-base contentClass space-y-6 text-gray-700" dangerouslySetInnerHTML={createMarkup(otherContent)}></div>}
       </div>
       <div>
-        {evenImages.length > 0 && (
-          <div>
-            <h3>Even Images:</h3>
-            <div>
-              {evenImages.map((imgHtml, index) => (
-                <div key={index} dangerouslySetInnerHTML={{ __html: imgHtml }} />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -64,7 +54,7 @@ export default function BlogPost(props) {
 export async function getServerSideProps(context) {
   try {
     const { slug } = context.query;
-    const data = await fetch(`https://microflix-next-app.vercel.app/api/getblogs/?slug=${slug}`);
+    const data = await fetch(`http://localhost:3000/api/getblogs/?slug=${slug}`);
     const myBlog = await data.json();
     return {
       props: { myBlog },

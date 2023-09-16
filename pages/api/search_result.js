@@ -1,14 +1,14 @@
-import { connectToDatabase } from './database/db';
-import { Scrape } from './database/scrapeSchema';
+import connectToDatabase from './database/db';
+import { Hollywood, Bollywood } from './database/scrapeSchema';
 
 export default async function handler(req, res) {
   try {
-    await connectToDatabase(); 
+    await connectToDatabase();
 
     const query = req.query.query || '';
-    const suggestions = await Scrape.find({
+    const suggestions = await (Hollywood || Bollywood).find({
       title: { $regex: new RegExp(query, 'i') },
-    })
+    });
 
     const response = {
       suggestions: suggestions.map((suggestion) => suggestion),

@@ -1,5 +1,5 @@
 // postContact.js
-import { connectToDatabase } from './database/db';
+import connectToDatabase from './database/db';
 import { Contact } from './database/contactSchema';
 
 export default async function handler(req, res) {

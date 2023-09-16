@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const adsData = await fetch('https://microflix-next-app.vercel.app/api/getads/');
+        const adsData = await fetch('http://localhost:3000/api/getads/');
         const parsedAdsData = await adsData.json();
 
         if (Array.isArray(parsedAdsData)) {

@@ -1,4 +1,3 @@
-// scrapeSchema.js
 import mongoose from 'mongoose';
 
 const scrapeSchema = new mongoose.Schema({
@@ -9,6 +8,6 @@ const scrapeSchema = new mongoose.Schema({
     content: String,
 });
 
-const Scrape = mongoose.models.Scrape || mongoose.model('Scrape', scrapeSchema);
-
-export { Scrape };
+export const Hollywood = mongoose.models.Hollywood || mongoose.model("Hollywood", scrapeSchema);
+export const Bollywood = mongoose.models.Bollywood || mongoose.model("Bollywood", scrapeSchema);
+export const Adult = mongoose.models.Adult || mongoose.model("Adult", scrapeSchema);
