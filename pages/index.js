@@ -16,7 +16,7 @@ export default function Home(props) {
 export async function getServerSideProps() {
   try {
     const fetchData = async (category, skip, limit) => {
-      const response = await fetch(`http://localhost:3000/api/blogs/?category=${category}&skip=${skip}&limit=${limit}`);
+      const response = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=${category}&skip=${skip}&limit=${limit}`);
       return await response.json();
     };
 

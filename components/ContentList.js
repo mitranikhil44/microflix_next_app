@@ -2,8 +2,7 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const ContentList = ({ category, initialContents }) => {
-  
+const ContentList = ({ category, initialContents }) => {  
   const [contents, setContents] = useState(initialContents || []);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(12);
@@ -12,7 +11,7 @@ const ContentList = ({ category, initialContents }) => {
   const fetchMoreData = async () => {
     try {
       const updatedSkip = skip + limit;
-      const data = await fetch(`http://localhost:3000/api/blogs/?category=${category}&skip=${updatedSkip}&limit=${limit}`);
+      const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=${category}&skip=${updatedSkip}&limit=${limit}`);
       const parsedData = await data.json();
 
       if (Array.isArray(parsedData.data)) {

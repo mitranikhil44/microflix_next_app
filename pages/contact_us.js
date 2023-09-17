@@ -4,7 +4,7 @@ function Contact() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = {name, email, contact, message};
-        const url = `http://localhost:3000/api/postcontact`
+        const url = `https://microflix-next-app.vercel.app/api/postcontact`
 
         fetch(url, {
             method: "POST",

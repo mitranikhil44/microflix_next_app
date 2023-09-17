@@ -5,11 +5,11 @@ const Modal = ({ isOpen, onClose, children }) => {
 
 
   return (
-    <div className={`bg-gray-900 bg-opacity-50 w-full`}>
-      <div className="mx-auto max-w-md">
-        <div className="bg-white p-4 rounded-lg shadow-lg">
+    <div className={`bg-gray-700 bg-opacity-50 w-full rounded-md`}>
+      <div className="mx-auto">
+        <div className="bg-p-2 rounded-lg shadow-lg">
           <button
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+            className="absolute top-2 text-gray-400 hover:text-gray-600"
             onClick={onClose}
           >
             <svg

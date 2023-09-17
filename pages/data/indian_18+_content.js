@@ -1,24 +1,24 @@
 import ContentList from '../../components/ContentList';
 
-const Indian_18_Content = ({ initialMovies }) => {
+const Indian_18_Content = ({ initialContents }) => {
   return (
     <div>
-      <ContentList category="bollywood/adult" initialMovies={initialMovies.data} />
+      <ContentList category="bollywood/adult" initialContents={initialContents.data} />
     </div>
   );
 };
 
 export async function getServerSideProps() {
   try {
-    const data = await fetch(`http://localhost:3000/api/blogs/?category=bollywood/adult&skip=0&limit=12`);
+    const data = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=bollywood/adult&skip=0&limit=12`);
     const movies = await data.json();
     return {
-      props: { initialMovies: movies },
+      props: { initialContents: movies },
     };
   } catch (error) {
     return {
       props: {
-        initialMovies: { files: [], count: 0, total: 0 },
+        initialContents: { files: [], count: 0, total: 0 },
       },
     };
   }
