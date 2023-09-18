@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Contact() {
-    const apiKey = process.env.API_KEY || "https://microflix_next_app.vercel.app/";
+    const apiKey = process.env.API_KEY || "https://microflix.vercel.app/";
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = {name, email, contact, message};
