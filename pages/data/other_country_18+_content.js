@@ -1,4 +1,5 @@
 import ContentList from '../../components/ContentList';
+import Image from 'next/image';
 
 const Other_Country_18_Content = ({ initialContents }) => {
   return (

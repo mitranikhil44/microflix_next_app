@@ -1,4 +1,5 @@
 import MoviesCollection from "../components/Movie_Collection";
+import Image from 'next/image';
 
 export default function Home(props) {
   // Access the API_KEY environment variable
