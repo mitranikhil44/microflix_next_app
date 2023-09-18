@@ -36,9 +36,10 @@ const Web_Series = ({ otherSeasons, indianSeasons }) => {
 };
 
 export async function getServerSideProps() {
+  const apiKey = process.env.API_KEY;
   try {
-    const hData = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/seasons&skip=0&limit=12`);
-    const bData = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=bollywood/seasons&skip=0&limit=12`);
+    const hData = await fetch(`${apiKey}api/blogs/?category=hollywood/seasons&skip=0&limit=12`);
+    const bData = await fetch(`${apiKey}api/blogs/?category=bollywood/seasons&skip=0&limit=12`);
     let hSeasons = await hData.json();
     let bSeasons = await bData.json();
     hSeasons = hSeasons.data || [];

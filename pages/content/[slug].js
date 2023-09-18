@@ -52,9 +52,10 @@ export default function BlogPost(props) {
 
 
 export async function getServerSideProps(context) {
+  const apiKey = process.env.API_KEY;
   try {
     const { slug } = context.query;
-    const data = await fetch(`https://microflix-next-app.vercel.app/api/getblogs/?slug=${slug}`);
+    const data = await fetch(`${apiKey}api/getblogs/?slug=${slug}`);
     const myBlog = await data.json();
     return {
       props: { myBlog },

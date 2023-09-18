@@ -25,8 +25,9 @@ const search = () => {
   };
 
   const fetchSuggestions = async (query) => {
+    const apiKey = process.env.API_KEY || "https://microflix_next_app.vercel.app/";
     try {
-      const response = await fetch(`https://microflix-next-app.vercel.app/api/search_result/?query=${query}`);
+      const response = await fetch(`${apiKey}api/search_result/?query=${query}`);
       const data = await response.json();
 
       if (Array.isArray(data.suggestions)) {

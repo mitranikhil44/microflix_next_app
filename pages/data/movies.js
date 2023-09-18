@@ -36,9 +36,10 @@ const Movies = ({ otherMovies, indianMovies }) => {
 };
 
 export async function getServerSideProps() {
+  const apiKey = process.env.API_KEY;
   try {
-    const hData = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=hollywood/movies&skip=0&limit=12`);
-    const bData = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=bollywood/movies&skip=0&limit=12`);
+    const hData = await fetch(`${apiKey}api/blogs/?category=hollywood/movies&skip=0&limit=12`);
+    const bData = await fetch(`${apiKey}api/blogs/?category=bollywood/movies&skip=0&limit=12`);
     let hMovies = await hData.json();
     let bMovies = await bData.json();
     hMovies = hMovies.data || [];

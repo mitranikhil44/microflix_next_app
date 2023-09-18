@@ -11,12 +11,13 @@ export const metadata = {
 };
 
 function MyApp({ Component, pageProps }) {
+  const apiKey = process.env.API_KEY || "https://microflix_next_app.vercel.app/";
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const adsData = await fetch('https://microflix-next-app.vercel.app/api/getads/');
+        const adsData = await fetch(`${apiKey}api/getads/`);
         const parsedAdsData = await adsData.json();
 
         if (Array.isArray(parsedAdsData)) {

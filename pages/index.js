@@ -1,8 +1,9 @@
 import MoviesCollection from "../components/Movie_Collection";
 
 export default function Home(props) {
+  // Access the API_KEY environment variable
   const { hollywoodData, hollywoodAdultData, bollywoodData, bollywoodAdultData } = props;
-
+  
   return (
     <main>
       <MoviesCollection data={hollywoodData.data} collectionName={"Other Country Content"} linkPath="/data/other_country_content" />
@@ -14,9 +15,11 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps() {
+  const apiKey = process.env.API_KEY;
   try {
     const fetchData = async (category, skip, limit) => {
-      const response = await fetch(`https://microflix-next-app.vercel.app/api/blogs/?category=${category}&skip=${skip}&limit=${limit}`);
+      // Use the apiKey variable here
+      const response = await fetch(`${apiKey}api/blogs/?category=${category}&skip=${skip}&limit=${limit}`);
       return await response.json();
     };
 
@@ -30,7 +33,6 @@ export async function getServerSideProps() {
     return {
       props: { hollywoodData, bollywoodData, hollywoodAdultData, bollywoodAdultData },
     };
-
   } catch (error) {
     console.error("Error:", error);
     return {

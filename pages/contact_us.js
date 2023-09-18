@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 function Contact() {
+    const apiKey = process.env.API_KEY || "https://microflix_next_app.vercel.app/";
     const handleSubmit = (e)=>{
         e.preventDefault();
         const data = {name, email, contact, message};
-        const url = `https://microflix-next-app.vercel.app/api/postcontact`
+        const url = `${apiKey}api/postcontact`
 
         fetch(url, {
             method: "POST",
