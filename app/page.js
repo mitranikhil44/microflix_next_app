@@ -17,14 +17,16 @@ export default async function Home() {
   const data = response.props.data;
   return (
     <main>
-      {categoriesConfig.map((config, index) => (
+      {/* {categoriesConfig.map((config, index) => (
         <MoviesCollection
           key={index + 1}
           data={data[config.category][0].data}
           collectionName={config.label}
           linkPath={`/data/${config.category}`}
         />
-      ))}
+      ))} */}
+
+      <div className="text-lg">This page is under construction please explore other pages</div>
     </main>
   );
 }
