@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-
 * {
   padding: 0px;
   margin: 0px;
@@ -10,8 +9,12 @@
   background: transparent;
 }
 
-body{
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+body {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   background-attachment: fixed;
   background-color: rgba(0, 0, 0, 0.875);
 }
@@ -32,7 +35,11 @@ body{
 .vignette {
   position: relative;
   /* Add a radial gradient background to create the vignette effect */
-  background: radial-gradient(ellipse at center, rgba(85, 66, 34, 0.6) 0%, rgba(199, 148, 59, 0.8) 200%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(85, 66, 34, 0.6) 0%,
+    rgba(199, 148, 59, 0.8) 200%
+  );
   /* You can adjust the size and position of the vignette by changing these values */
   background-size: cover;
   background-position: center;
@@ -45,11 +52,10 @@ body{
 .contentClass h4:not(:has(img)),
 .contentClass h2:not(:has(img)) a,
 .contentClass h2:not(:has(img)) a span,
-  .contentClass h2:not(:has(img)) a span i {
+.contentClass h2:not(:has(img)) a span i {
   background: transparent;
   margin: 1%;
 }
-
 
 .contentClass h2:not(:has(img)) a,
 .contentClass h3:not(:has(img)) a,
@@ -128,7 +134,5 @@ body{
     height: 24rem;
   }
 }
-
-
 
 @tailwind utilities;

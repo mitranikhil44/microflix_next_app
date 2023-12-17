@@ -15,18 +15,18 @@ const categoriesConfig = [
 export default async function Home() {
   const response = await serverSideProps();
   const data = response.props.data;
+  console.log(data);
   return (
     <main>
-      {/* {categoriesConfig.map((config, index) => (
+      {categoriesConfig.map((config, index) => (
         <MoviesCollection
           key={index + 1}
           data={data[config.category][0].data}
           collectionName={config.label}
           linkPath={`/data/${config.category}`}
         />
-      ))} */}
+      ))}
 
-      <div className="text-lg">This page is under construction please explore other pages</div>
     </main>
   );
 }

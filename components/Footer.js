@@ -15,19 +15,19 @@ const Footer = () => {
   return (
     <>
       {isLoading && <LoadingSpinner />}
-      <header className="text-gray-400 body-font sticky bottom-0 left-0 text-xs xxs:text-sm lg:text-base xl:text-lg 2xl:text-2xl bg-transparent">
+      <header className="text-gray-400 body-font sticky bottom-0 left-0 text-xs xxs:text-sm lg:text-base xl:text-lg 2xl:text-2xl">
         <div className='flex justify-center items-center rounded-xl xs:rounded-2xl lg:rounded-3xl w-[85%] mx-auto mb-[1%] p-[1%] vignette'>
-          <Link href="/data/movies" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500 bg-transparent" onClick={showLoading}>Movies</Link>
-          <Link href="/data/web_series" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500 bg-transparent" onClick={showLoading}>Web Series</Link>
-          <div className='hidden bg-transparent xs:block '>
-            <Link href="/data/contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500 bg-transparent" onClick={showLoading}>Contents</Link>
-            <Link href="/data/18+_contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500 bg-transparent" onClick={showLoading}>18+ Contents</Link>
+          <Link href="/data/movies" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>Movies</Link>
+          <Link href="/data/web_series" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>Web Series</Link>
+          <div className='hidden xs:block '>
+            <Link href="/data/contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>Contents</Link>
+            <Link href="/data/18+_contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>18+ Contents</Link>
           </div>
 
           {/* Dropdown Buttons */}
 
           {/* More Contents Dropdown Button */}
-          <div className="relative group bg-transparent xs:hidden mr-3 md:mr-5 xl:mr-8">
+          <div className="relative group xs:hidden mr-3 md:mr-5 xl:mr-8">
             <button className="text-white hover:text-yellow-500 rounded-md focus:outline-none flex justify-center items-center gap-1">
               More
             </button>
@@ -54,7 +54,7 @@ const Footer = () => {
         </div>
         <nav className="p-[2%] sm:p-[1.5%] md:p-[1%] flex gap-5 items-center justify-center bg-gray-950">
           <div className='flex justify-center items-center flex-col cursor-pointer hover:text-yellow-500 '>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bg-transparent bi bi-house-door-fill" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house-door-fill" viewBox="0 0 16 16">
               <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
             </svg>
             <Link href="/" onClick={showLoading}>Home</Link>
