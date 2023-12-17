@@ -15,7 +15,6 @@ const categoriesConfig = [
 export default async function Home() {
   const response = await backendData();
   const data = response.props.data;
-  console.log(data);
   return (
     <main>
       <div className="text-lg">This page is under construction please explore other pages</div>
@@ -33,9 +32,19 @@ export default async function Home() {
 }
 
 async function fetchData(category, apiKey) {
-  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`);
-  const data = await response.json();
-  return { [category]: data };
+  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`, {
+    headers: {
+      'Cache-Control': 'no-store',
+    },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return { [category]: data };
+  } else {
+    console.error(`Error while fetching data for ${category}: ${response.statusText}`);
+    return { [category]: { error: 'Error while fetching data' } };
+  }
 }
 
 export async function backendData() {
