@@ -18,14 +18,15 @@ export default async function Home() {
   console.log(data);
   return (
     <main>
-      {categoriesConfig.map((config, index) => (
+      <div className="text-lg">This page is under construction please explore other pages</div>
+      {/* {categoriesConfig.map((config, index) => (
         <MoviesCollection
           key={index + 1}
           data={data[config.category][0].data}
           collectionName={config.label}
           linkPath={`/data/${config.category}`}
         />
-      ))}
+      ))} */}
 
     </main>
   );
