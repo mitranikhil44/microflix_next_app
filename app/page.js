@@ -13,7 +13,7 @@ const categoriesConfig = [
 ];
 
 export default async function Home() {
-  const response = await serverSideProps();
+  const response = await backendData();
   const data = response.props.data;
   console.log(data);
   return (
@@ -32,13 +32,13 @@ export default async function Home() {
 }
 
 async function fetchData(category, apiKey) {
-  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`);
+  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`, {cache: "no-store"});
   const data = await response.json();
   return { [category]: data };
 }
 
-export async function serverSideProps() {
-  const apiKey = process.env.API_KEY;
+export async function backendData() {
+  const apiKey = process.env.API_KEY || "https://microflix.vercel.app/";
   const promises = categoriesConfig.map((config) => fetchData(config.category, apiKey));
 
   try {

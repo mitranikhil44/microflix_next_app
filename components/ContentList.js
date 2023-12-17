@@ -7,7 +7,7 @@ import Image from "next/image";
 import LoadingSpinner from "./Loading";
 
 const ContentList = ({ category, initialContents }) => {
-  const apiKey = process.env.API_KEY || "http://localhost:3000/";
+  const apiKey = process.env.API_KEY || "https://microflix.vercel.app/";
   const [contents, setContents] = useState(initialContents || []);
   const [page, setPage] = useState(1);
   const [limit] = useState(12);

@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import LoadingSpinner from "../../components/Loading";
 
 const Search_Result = () => {
-  const apiKey = process.env.API_KEY || "http://localhost:3000/";
+  const apiKey = process.env.API_KEY || "https://microflix.vercel.app/";
   const searchSearch = useSearchParams();
   const query = searchSearch.get("query");
   const [contents, setContents] = useState([]);
