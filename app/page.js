@@ -32,7 +32,7 @@ export default async function Home() {
 }
 
 async function fetchData(category, apiKey) {
-  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`, {cache: "no-store"});
+  const response = await fetch(`${apiKey}/api/blogs/?category=${category}&page=1`);
   const data = await response.json();
   return { [category]: data };
 }
