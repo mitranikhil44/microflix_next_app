@@ -46,62 +46,18 @@ body {
   background-repeat: no-repeat;
 }
 
-.contentClass h2 a svg,
-.contentClass h2:not(:has(img)),
-.contentClass h3:not(:has(img)),
-.contentClass h4:not(:has(img)),
-.contentClass h2:not(:has(img)) a,
-.contentClass h2:not(:has(img)) a span,
-.contentClass h2:not(:has(img)) a span i {
-  background: transparent;
-  margin: 1%;
-}
-
-.contentClass h2:not(:has(img)) a,
-.contentClass h3:not(:has(img)) a,
-.contentClass h4:not(:has(img)) a {
-  width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px #947533cc;
-  background-color: #c9943c;
-  color: #fff;
-  padding: 1% 2%;
-  text-decoration: none;
-  transition: transform 0.3s ease-in-out;
-
+.dwd-button{
+  margin: 2%;
+  border: 2px solid green;
+  color: lightgreen;
+  border-radius: 4px;
   &:hover {
     transform: scale(1.05);
+    color: white;
+    background-color: green;
   }
 }
 
-.contentClass h2:not(:has(img)) a:hover,
-.contentClass h3:not(:has(img)) a:hover,
-.contentClass h4:not(:has(img)) a:hover {
-  background-color: #9d742f;
-}
-
-.contentClass p,
-.contentClass h3 {
-  padding: 1%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.contentClass p img,
-.contentClass h3 img {
-  width: 100%;
-  height: auto;
-  margin: 1%;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
 
 .contentClass div h2 a {
   display: flex;

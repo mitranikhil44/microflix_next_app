@@ -3,8 +3,8 @@ import cheerio from "cheerio";
 import connectToDatabase from "@/lib/mongodb";
 import { Contents } from "@/models/scrapeSchema";
 
-const BASE_URL = "https://hdhub4u.foo/page/";
-const TOTAL_PAGES = 813;
+const BASE_URL = "https://vegamovies.dad/page/";
+const TOTAL_PAGES = 991;
 
 async function processArticle(article) {
   const { url } = article;
@@ -13,15 +13,27 @@ async function processArticle(article) {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
 
-    const contentElement = $("main.page-body");
+    const contentElement = $("div.entry-content");
     if (!contentElement.length) {
       console.error("Content element not found for article:", article.title);
       return;
     }
 
+    // Extract data-lazy-src values from img tags within p tags
+    const imgDataLazySrcValues = [];
+    contentElement.find("p img").each(function () {
+      const dataLazySrc = $(this).attr("data-lazy-src");
+      if (dataLazySrc) {
+        imgDataLazySrcValues.push(dataLazySrc);
+      }
+    });
+
+    // Remove p tags containing img tags
+    contentElement.find("p:has(img)").remove();
+
     const content = contentElement
       .html()
-      .replace(/HDHub4u/g, (match, offset, input) => {
+      .replace(/Vegamovies.NL/g, (match, offset, input) => {
         const srcIndex = input.lastIndexOf('src="', offset);
 
         if (srcIndex === -1 || input.indexOf('"', srcIndex + 5) < offset) {
@@ -34,29 +46,25 @@ async function processArticle(article) {
     const checkContentElement = $(content);
     let ratingElements;
 
-      ratingElements = checkContentElement.find("strong").filter(function () {
-        return /Rating:/i.test($(this).text());
-      });
-      ratingElements = checkContentElement.find("span").filter(function () {
-        return /Rating:/i.test($(this).text());
-      });
+    ratingElements = checkContentElement.find("span").filter(function () {
+      return /Rating:/i.test($(this).text());
+    });
 
     var imdbRatings = ratingElements.toArray().map((ratingStrong) => {
       const parentDivText = $(ratingStrong).parents().eq(1).text().trim();
       const imdbRatingMatch = parentDivText.match(/(\d+(\.\d+)?)/);
       if (imdbRatingMatch) {
-        const imdbRating = parseFloat(imdbRatingMatch[0]); // Access the matched string with [0]
+        const imdbRating = parseFloat(imdbRatingMatch[0]);
         if (!isNaN(imdbRating)) {
-          // Check if it's a valid number
           return imdbRating;
         } else {
-          return null; // Handle case where IMDb rating is not a valid number
+          return null;
         }
       } else {
-        return null; // Handle case where IMDb rating is not found or not in the expected format
+        return null;
       }
     });
-    console.log(imdbRatings);
+
     const slug = article.title
       .replace(/[^\w\s]/g, "")
       .replace(/\s+/g, "_")
@@ -66,30 +74,33 @@ async function processArticle(article) {
 
     if (existingArticle) {
       await Contents.updateOne(
-        { url },
+        { slug },
         {
           title: article.title,
           imdb: imdbRatings,
-          url,
-          slug: article.slug,
+          url: article.url,
+          slug,
           image: article.image,
           content,
+          contentSceens: imgDataLazySrcValues,
         }
       );
     } else {
       await Contents.create({
         title: article.title,
         imdb: imdbRatings,
-        url,
+        url: article.url,
         image: article.image,
         slug,
         content,
+        contentSceens: imgDataLazySrcValues,
       });
     }
   } catch (error) {
     console.error("Error processing article:", error.message);
   }
 }
+
 
 async function scrapePage(pageNumber) {
   const url = `${BASE_URL}${pageNumber}/`;
@@ -101,10 +112,10 @@ async function scrapePage(pageNumber) {
 
     const articles = [];
 
-    $("section.home-wrapper ul li").each((index, element) => {
-      const title = $(element).find("p").text();
+    $("article.post-item").each((index, element) => {
+      const title = $(element).find("h3").text();
       const articleUrl = $(element).find("a").attr("href");
-      const image = $(element).find("img[src]").attr("src");
+      const image = $(element).find("img").attr("data-lazy-src");
 
       articles.push({ title, url: articleUrl, image });
     });

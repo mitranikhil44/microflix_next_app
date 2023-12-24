@@ -7,6 +7,7 @@ const scrapeSchema = new mongoose.Schema({
   image: String,
   slug: String,
   content: String,
+  contentSceens: [String],
   updatedAt: {
     type: Date,
     default: Date.now,
