@@ -10,7 +10,7 @@ export async function GET(req) {
         const slugs = query.map((item) => item.slug);
         const sitemapXml = generateSitemapXml(slugs);
 
-        return NextResponse.json({sitemapXml});
+        return NextResponse.json(sitemapXml);
     } catch (error) {
         console.error('Error fetching slugs:', error);
         return NextResponse.text('Internal Server Error', { status: 500 });
