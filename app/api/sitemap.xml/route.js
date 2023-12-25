@@ -10,7 +10,10 @@ export async function GET(req) {
         const slugs = query.map((item) => item.slug);
         const sitemapXml = generateSitemapXml(slugs);
 
-        return NextResponse.json(sitemapXml);
+        return new Response(sitemapXml, {
+          status: 200,
+          headers: { 'Content-Type': 'application/xml' },
+        })
     } catch (error) {
         console.error('Error fetching slugs:', error);
         return NextResponse.text('Internal Server Error', { status: 500 });
@@ -21,7 +24,7 @@ const generateSitemapXml = (slugs) => {
     const baseUrl = 'https://microflix.vercel.app/';
     const pages = slugs.map((slug) => ({
         loc: `${baseUrl}/${slug}`,
-        lastmod: new Date().toISOString(), 
+        lastmod: new Date().toISOString(),
         changefreq: 'daily',
         priority: 0.7,
     }));
