@@ -27,6 +27,8 @@ export default async function Content_Post({ params }) {
     <>
       <Head>
         <title>{content.slug}</title>
+        {/* Ads Script */}
+        <script type='text/javascript' src='//pl17869772.toprevenuegate.com/84/84/ce/8484cef01a310a80e4ea6f32c0a15daa.js'></script>
       </Head>
       <div
         className="flex flex-col justify-center items-center py-6 px-4 text-xs xs:text-sm md:text-base contentClass text-gray-700"

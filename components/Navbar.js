@@ -7,13 +7,12 @@ import LoadingSpinner from "./Loading";
 import { useState } from 'react';
 
 const Navbar = () => {
-  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+  const [isLoading, setIsLoading] = useState(false); 
   const showLoading = async () => {
-    // Simulate data loading
     setIsLoading(true)
     setTimeout(() => {
-      setIsLoading(false); // Set isLoading to false when data is available
-    }, 1000); // Simulating a 2-second delay
+      setIsLoading(false); 
+    }, 1000);
   }
   return (
     <>
