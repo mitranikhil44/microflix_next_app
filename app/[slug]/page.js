@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 
 export default async function Content_Post({ params }) {
@@ -25,11 +24,12 @@ export default async function Content_Post({ params }) {
 
   return (
     <>
-      <Head>
-        <title>{content.slug}</title>
+      <head>
+        <title>{content.title}</title>
+        <meta name="description" content="Microflix - Your destination for Bollywood, Tollywood, and Hollywood movies. Download in 480p, 720p, 1080p. Enjoy high-quality movies in Hindi." />
         {/* Ads Script */}
         <script type='text/javascript' src='//pl17869772.toprevenuegate.com/84/84/ce/8484cef01a310a80e4ea6f32c0a15daa.js'></script>
-      </Head>
+      </head>
       <div
         className="flex flex-col justify-center items-center py-6 px-4 text-xs xs:text-sm md:text-base contentClass text-gray-700"
         dangerouslySetInnerHTML={createMarkup(fullContentHTML)}
