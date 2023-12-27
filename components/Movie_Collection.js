@@ -27,6 +27,19 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
     };
   }, []);
 
+  useEffect(() => {
+    // Auto-scroll every 5000 milliseconds (adjust as needed)
+    const autoScrollInterval = setInterval(() => {
+      if (!isScrolling) {
+        scrollToSlide(currentSlide + 1);
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(autoScrollInterval);
+    };
+  }, [currentSlide, isScrolling]);
+
   const scrollToSlide = (index) => {
     if (carouselRef.current) {
       const totalSlides = data.length - Math.ceil(window.innerWidth / 200);
@@ -55,7 +68,9 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
   return (
     <>
       <div>
-        <h2 className="absolute bottom-0 left-0 ml-2 mb-2 text-sm text-gray-500">{collectionName}</h2>
+        <Link href="/data/contents">
+        <h2 className="text-lg text-white my-4">{collectionName}</h2>
+        </Link>
       </div>
       <div className="relative">
         <div className="overflow-x-auto w-full">
@@ -71,23 +86,23 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
               data.map((element, index) => (
                 <div key={index} className="w-1/2 xs:w-1/3 sm:w-1/4 md:w-1/5 lg:w-1/6 xl:w-[14.29%] 2xl:w-[12.5%] flex-shrink-0">
                   <Link href={element.slug}>
-                  <div
-                    onClick={() => scrollToSlide(index)}
-                    className="mx-2 flex flex-col justify-center items-center hover:scale-95 cursor-pointer"
+                    <div
+                      onClick={() => scrollToSlide(index)}
+                      className="mx-2 flex flex-col justify-center items-center hover:scale-95 cursor-pointer"
                     >
-                    <div className="relative h-60">
-                      <Image
-                        width={144}
-                        height={144}
-                        src={element.image}
-                        alt="Image"
-                        className="cropped-image hover:scale-95 rounded-lg"
+                      <div className="relative h-60">
+                        <Image
+                          width={144}
+                          height={144}
+                          src={element.image}
+                          alt="Image"
+                          className="cropped-image hover:scale-95 rounded-lg"
                         />
-                      {/* Additional content here */}
+                        {/* Additional content here */}
+                      </div>
+                      <p className="text-center font-light text-xs mt-[4%] md:text-sm ">{element.title}</p>
                     </div>
-                    <p className="text-center font-light text-xs mt-[4%] md:text-sm ">{element.title}</p>
-                  </div>
-                        </Link>
+                  </Link>
                 </div>
               ))}
           </div>
