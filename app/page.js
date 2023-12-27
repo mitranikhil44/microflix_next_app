@@ -6,15 +6,11 @@ export default async function Home() {
   const contents = data[0].data
   return (
     <main>
-      <div className="text-lg">This page is under construction please explore other pages</div>
-      {/* {contents && contents.map((elem, index) => (
         <MoviesCollection
-        key={index + 1}
-        data={elem}
-        collectionName="Contents"
-        linkPath={`/data/contents`}
+          data={contents}
+          collectionName="Contents" 
+          linkPath="/data/contents"
         />
-        ))} */}
     </main>
   );
 }
