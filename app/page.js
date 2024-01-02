@@ -1,17 +1,24 @@
 import React from "react";
 import MoviesCollection from "../components/Movie_Collection";
+import LatestContents from "../components/LatestContents";
 
 export default async function Home() {
-  const data = await fetchContents("contents");
-  const contents = data[0].data
+  const contentsData = await fetchContents("contents");
+  const contents = contentsData[0].data
+  const latestData = await fetchContents("latest_contents");
+  const latestContents = latestData[0].data
   return (
-    <main>
+    <>
+    <header>
+      <LatestContents data={latestContents}/>
+    </header>
+    <section>      
         <MoviesCollection
           data={contents}
-          collectionName="Contents" 
-          linkPath="/data/contents"
-        />
-    </main>
+          collectionName="Contents"
+          />
+          </section>
+    </>
   );
 }
 

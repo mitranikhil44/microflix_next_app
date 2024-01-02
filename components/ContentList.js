@@ -47,6 +47,29 @@ const ContentList = ({ category, initialContents }) => {
     }, 5000);
   }
 
+  const getRatingColor = (rating) => {
+    const imdbRating = parseFloat(rating);
+
+    switch (true) {
+      case imdbRating >= 9:
+        return 'bg-green-900';
+      case imdbRating >= 8:
+        return 'bg-green-700';
+      case imdbRating >= 7:
+        return 'bg-green-500';
+      case imdbRating >= 6:
+        return "bg-yellow-700"
+      case imdbRating >= 5:
+        return "bg-orange-700"
+      case imdbRating >= 4:
+        return 'bg-orange-500';
+      case imdbRating >= 3:
+        return "bg-red-500"
+      default:
+        return "bg-red-700"
+    }
+  };
+
   return (
     <div>
       {isLoading && <LoadingSpinner />}
@@ -68,9 +91,12 @@ const ContentList = ({ category, initialContents }) => {
                     alt="Image"
                     className="object-cover hover:scale-110 overflow-hidden rounded-lg"
                   />
-                  <p className={`IMDB rounded-tl-lg absolute top-0 left-0 overflow-hidden p-[1%] text-white ${imdbRating >= 9 ? 'bg-green-700' : imdbRating >= 8 ? "bg-green-600": imdbRating >= 7 ? "bg-green-500": imdbRating >= 6.5 ? "bg-yellow-700": imdbRating >= 6 ? "bg-yellow-600": imdbRating >= 5.5 ? "bg-yellow-500": imdbRating >= 5 ? "bg-red-500": imdbRating >= 4.5 ? "bg-red-600": "bg-red-700"}`}>
-                {imdbRating.toFixed(1)}
-              </p>
+                  <div
+                          className={`IMDB rounded-tl-lg absolute top-0 left-0 p-1 text-sm text-white bg-opacity-50 ${getRatingColor(element.imdbDetails.imdbRating.rating)}`}
+                        >
+                          <p>{element.imdbDetails.imdbRating.rating}</p>
+                          <p>{element.imdbDetails.imdbRating.votes}</p>
+                        </div>
                 </div>
                 <div className="text-center mt-2">
                   <h4 className="text-sm font-semibold mb-2">{element.title}</h4>
