@@ -1,11 +1,11 @@
 import connectToDatabase from '@/lib/mongodb';
-import { Contents } from '@/models/scrapeSchema';
+import { updateContents } from '@/models/scrapeSchema';
 
 export async function GET(req) {
   await connectToDatabase();
 
   try {
-    const query = await Contents.find({}, { slug: 1 }).exec();
+    const query = await updateContents.find({}, { slug: 1 }).exec();
     const slugs = query.map((item) => item.slug);
     const sitemapXml = generateSitemapXml(slugs);
 
@@ -28,21 +28,20 @@ const generateSitemapXml = (slugs) => {
     priority: 0.7,
   }));
 
-  const xml = `
-    <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${pages
-        .map(
-          (page) => `<url>
-        <loc>${page.loc}</loc>
-        <lastmod>${page.lastmod}</lastmod>
-        <changefreq>${page.changefreq}</changefreq>
-        <priority>${page.priority}</priority>
-      </url>`
-        )
-        .join('')}
-    </urlset>
-  `;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${pages
+    .map(
+      (page) => `<url>
+    <loc>${page.loc}</loc>
+    <lastmod>${page.lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`
+    )
+    .join('')}
+</urlset>`;
 
   return xml.trim();
 };
+
