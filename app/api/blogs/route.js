@@ -29,11 +29,18 @@ export async function GET(req) {
     let response = []
 
     if (category === 'latest_contents') {
-      const sortedData = await Contents.find({
-        'imdbDetails.formattedDate': { $ne: null }, // Filter out documents with null formattedDate
-      }).sort({
-        'imdbDetails.formattedDate': -1,
-      }).skip((page - 1) * pageSize).limit(pageSize);
+      const sortedData = await Contents.find()
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .lean(); // Optional: Use lean() for better performance if you don't need Mongoose features
+    
+      // Convert the formattedDateObject strings to Date objects for correct sorting
+      sortedData.forEach(item => {
+        item.imdbDetails.formattedDateObject = new Date(item.imdbDetails.formattedDateObject);
+      });
+    
+      // Sort the data based on the Date objects
+      sortedData.sort((a, b) => b.imdbDetails.formattedDateObject - a.imdbDetails.formattedDateObject);
     
       response.push({
         data: sortedData,
@@ -41,6 +48,8 @@ export async function GET(req) {
         pageSize,
       });
     }
+    
+    
     
     
 

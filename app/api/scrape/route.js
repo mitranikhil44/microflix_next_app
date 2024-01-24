@@ -3,8 +3,8 @@ import cheerio from "cheerio";
 import connectToDatabase from "@/lib/mongodb";
 import { Contents } from "@/models/scrapeSchema2";
 
-const BASE_URL = "https://dotmovies.rsvp/page/";
-const TOTAL_PAGES = 284;
+const BASE_URL = "https://vegamovies.dad/page/";
+const TOTAL_PAGES = 20;
 
 const scrapeCode = async (url) => {
   try {
@@ -299,7 +299,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 284) {
+async function processPages(startPage = 1) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i

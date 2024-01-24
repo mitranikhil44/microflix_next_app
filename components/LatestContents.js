@@ -68,6 +68,7 @@ const LatestContents = ({ data }) => {
               className={`w-full h-96 bg-cover bg-center bg-no-repeat ${currentSlide === index ? 'block' : 'hidden'
                 }`}
             >
+              {console.log(element)}
               <div className="relative w-full h-[30rem]">
                 <Image
                   src={element.image}
