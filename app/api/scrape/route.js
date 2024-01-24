@@ -1,10 +1,10 @@
 import axios from "axios";
 import cheerio from "cheerio";
 import connectToDatabase from "@/lib/mongodb";
-import { Contents } from "@/models/scrapeSchema";
+import { Contents } from "@/models/scrapeSchema2";
 
-const BASE_URL = "https://dotmovies.bet/page/";
-const TOTAL_PAGES = 283;
+const BASE_URL = "https://dotmovies.rsvp/page/";
+const TOTAL_PAGES = 284;
 
 const scrapeCode = async (url) => {
   try {
@@ -28,23 +28,97 @@ const scrapeImdbDetails = async (url) => {
     const linkData = await scrapeCode(contentLink);
     const $ = cheerio.load(linkData);
 
-    // Create an object to store the desired properties
-    const imdbDetails = {};
+    const imdbDetails = {
+      imdbRating: { rating: null, votes: null },
+      imdbGenres: null,
+      formattedDate: null,
+      formattedDateObject: null,
+      countryOfOrigin: null,
+      officialSite: null,
+      language: null,
+      alsoKnownAs: null,
+      filmingLocations: null,
+      productionCompanies: null,
+    };
 
     // Scrape IMDb rating
-    const imdbRatingText = $("div span.ipc-btn__text div div.dLwiNw").text().trim();
-    const ratingRegex = /(\d+\.\d+\/\d+(\.\d+)?[MK]?)/;
-    const match = imdbRatingText.match(ratingRegex);
+    const imdbRatingText = $("div.eWQwwe div.dLwiNw").text().trim();
+    const match = imdbRatingText.match(/([\d.]+)\/10\s*(\d{3})/);
 
     if (match) {
-      imdbDetails.imdbRating = match[0];
+      imdbDetails.imdbRating.rating = match[1];
+      imdbDetails.imdbRating.votes = match[2];
     } else {
-      throw new Error('IMDb rating not found');
+      console.log("No IMDb rating data available");
     }
 
-    // Scrape IMDb genres and details
-    imdbDetails.imdbGenres = $('div a.ipc-chip--on-baseAlt span').map((_, el) => $(el).text()).get();
-    imdbDetails.details = $("section[data-testid='Details'] div[data-testid='title-details-section'] li").map((_, el) => $(el).text().trim()).get();
+    // Scrape IMDb genres
+    const collectGenres = $('div a.ipc-chip--on-baseAlt span').map((_, el) => $(el).text().trim()).get();
+    imdbDetails.imdbGenres = collectGenres.length ? collectGenres.join(", ") : null;
+
+    // Scrape details
+    const details = $("section[data-testid='Details'] div[data-testid='title-details-section'] li").map((_, el) => $(el).text().trim()).get();
+
+    // Scrape Release date
+    const releaseDateRegex = /^Release date(.+)$/i;
+    const formattedDateMatch = details.find((detail) => releaseDateRegex.test(detail));
+    if (formattedDateMatch) {
+      const formattedDate = releaseDateRegex.exec(formattedDateMatch)[1].trim();
+      const dateObject = new Date(formattedDate);
+      imdbDetails.formattedDate = formattedDate;
+      imdbDetails.formattedDateObject = `${dateObject.getDate()}-${dateObject.getMonth() + 1}-${dateObject.getFullYear()}`;
+    } else {
+      console.log("No Release date information available");
+    }
+
+    // Process other details
+    let countryOfOrigin = null;
+    let officialSite = null;
+    let language = null;
+    let alsoKnownAs = null;
+    let filmingLocations = null;
+    let productionCompanies = null;
+    for (let i = 2; i < details.length - 1; i++) {
+      const currentDetail = details[i];
+      const nextDetail = details[i + 1];
+      if (
+        currentDetail.startsWith("Country of origin") &&
+        !nextDetail.startsWith("Country of origin")
+      ) {
+        countryOfOrigin = nextDetail.trim();
+      } else if (
+        currentDetail.startsWith("Official site") &&
+        !nextDetail.startsWith("Official site")
+      ) {
+        officialSite = nextDetail.trim();
+      } else if (
+        currentDetail.startsWith("Language") &&
+        !nextDetail.startsWith("Language")
+      ) {
+        language = nextDetail.trim();
+      } else if (
+        currentDetail.startsWith("Also known as") &&
+        !nextDetail.startsWith("Also known as")
+      ) {
+        alsoKnownAs = nextDetail.trim();
+      } else if (
+        currentDetail.startsWith("Filming locations") &&
+        !nextDetail.startsWith("Filming locations")
+      ) {
+        filmingLocations = nextDetail.trim();
+      } else if (
+        currentDetail.startsWith("Production companies") &&
+        !nextDetail.startsWith("Production companies")
+      ) {
+        productionCompanies = nextDetail.trim();
+      }
+    }
+    imdbDetails.countryOfOrigin = countryOfOrigin;
+    imdbDetails.officialSite = officialSite;
+    imdbDetails.language = language;
+    imdbDetails.alsoKnownAs = alsoKnownAs;
+    imdbDetails.filmingLocations = filmingLocations;
+    imdbDetails.productionCompanies = productionCompanies;
 
     return imdbDetails;
   } catch (error) {
@@ -52,6 +126,7 @@ const scrapeImdbDetails = async (url) => {
     throw error; // Rethrow the error for the caller to handle
   }
 };
+
 
 // Function to search IMDb and get IMDb links for a given query
 const searchIMDb = async (query) => {
@@ -68,8 +143,39 @@ const searchIMDb = async (query) => {
   }
 };
 
+function extractSearchableContent(contentTextArray) {
+  const findContent = {
+    name: '',
+    year: '',
+  };
+
+  if (contentTextArray.length > 0) {
+    const contentText = contentTextArray.join(' '); // Combine array into a single string
+    const nameMatch = contentText.match(/(?:movie|show|series|full)\s*name:*(.*)/i);
+    const yearMatch = contentText.match(/(?:released\s*year:)?\s*(\d{4})/i);
+
+    if (nameMatch) {
+      findContent.name = nameMatch[1].trim();
+    }
+
+    if (yearMatch) {
+      findContent.year = yearMatch[1].trim();
+    }
+
+    if (!nameMatch && !yearMatch) {
+      console.log("No match found for Movie Name and Released Year");
+    }
+  } else {
+    console.log("No p elements found");
+  }
+
+  const searchableContent = findContent.name + " " + findContent.year;
+  return searchableContent;
+}
+
+
 async function processArticle(article) {
-  const { url } = article;
+  const { url, title, image } = article;
 
   try {
     const response = await axios.get(url);
@@ -77,24 +183,30 @@ async function processArticle(article) {
 
     const contentElement = $("div.entry-content");
     if (!contentElement.length) {
-      console.error("Content element not found for article:", article.title);
+      console.error("Content element not found for article:", title);
       return;
     }
 
     // Extract data-lazy-src values from img tags within p tags
-    const imgDataLazySrcValues = [];
-    contentElement.find("p img").each(function () {
-      const dataLazySrc = $(this).attr("data-lazy-src");
-      if (dataLazySrc) {
-        imgDataLazySrcValues.push(dataLazySrc);
-      }
-    });
+    const imgDataLazySrcValues = contentElement.find("p img")
+      .map((_, elem) => $(elem).attr("data-lazy-src"))
+      .get();
 
+    const slug = title.replace(/[^\w\s]/g, "").replace(/\s+/g, "_").toLowerCase();
+
+    const contentTextArray = contentElement.find("p")
+      .map((_, e) => $(e).text().toLowerCase())
+      .get();
+
+    const searchableContent = extractSearchableContent(contentTextArray);
+
+    // Search IMDb and get details
+    const imdbData = await getIMDbDetails(searchableContent);
+    
     // Remove p tags containing img tags
     contentElement.find("p:has(img)").remove();
 
-    const content = contentElement
-      .html()
+    const content = contentElement.html()
       .replace(/Vegamovies.NL/g, (match, offset, input) => {
         const srcIndex = input.lastIndexOf('src="', offset);
 
@@ -105,99 +217,61 @@ async function processArticle(article) {
         }
       });
 
-    const checkContentElement = $(content);
+    // Update or create database entry
+    await updateOrCreateDatabaseEntry({ url, title, image, slug, content, imgDataLazySrcValues, imdbData });
+  } catch (error) {
+    console.error("Error processing article:", error.message);
+  }
+}
 
-    let ratingElements;
+async function getIMDbDetails(searchableContent) {
+  try {
+    const imdbLinks = await searchIMDb(searchableContent);
 
-    ratingElements = checkContentElement.find("span").filter(function () {
-      return /Rating:/i.test($(this).text());
-    });
+    if (imdbLinks && imdbLinks.length > 0) {
+      return await scrapeImdbDetails(imdbLinks[0]);
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching IMDb details:', error.message);
+    return null;
+  }
+}
 
-    var imdbRatings = ratingElements.toArray().map((ratingStrong) => {
-      const parentDivText = $(ratingStrong).parents().eq(1).text().trim();
-      const imdbRatingMatch = parentDivText.match(/(\d+(\.\d+)?)/);
-      if (imdbRatingMatch) {
-        const imdbRating = parseFloat(imdbRatingMatch[0]);
-        if (!isNaN(imdbRating)) {
-          return imdbRating;
-        } else {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    });
-
-    const slug = article.title
-      .replace(/[^\w\s]/g, "")
-      .replace(/\s+/g, "_")
-      .toLowerCase();
-  
-      // Search IMDb and update the database for each title and slug
-      const fetchData = async () => {
-          // Process the slug to create a search query
-          let processedSlug = slug.replace(/download+/ig, "").replace(/_/g, " ");
-          const match = processedSlug.match(/(?:download\s+)?(.+?\d{4}).*$/);
-  
-          if (match) {
-            processedSlug = match[1].trim();
-          }
-  
-          processedSlug = processedSlug.replace(/hindi.*$/i, "").replace(/english.*$/, "").replace(/korean.*$/, "").trim();
-  
-          const link = await searchIMDb(processedSlug);
-  
-          if (link && link.length > 0) {
-            const imdbDetails = await scrapeImdbDetails(link[0]);  
-            return imdbDetails;
-          } else {
-            return null;
-          }
-        }
-
-      const imdbdata = await fetchData();
-
+async function updateOrCreateDatabaseEntry({ url, title, image, slug, content, imgDataLazySrcValues, imdbData }) {
+  try {
     const existingArticle = await Contents.findOne({ url });
 
     if (existingArticle) {
       await Contents.updateOne(
         { url },
         {
-          title: article.title,
-          imdb: imdbRatings,
-          url: article.url,
+          title,
+          url,
+          image,
           slug,
-          image: article.image,
           content,
           contentSceens: imgDataLazySrcValues,
-          imdbDetails: {
-            imdbRating: imdbdata.imdbRating,
-            imdbGenres: imdbdata.imdbGenres,
-            details: imdbdata.details,
-          },
+          imdbDetails: imdbData || null,
         }
       );
     } else {
       await Contents.create({
-        title: article.title,
-        imdb: imdbRatings,
-        url: article.url,
-        image: article.image,
+        title,
+        url,
+        image,
         slug,
         content,
         contentSceens: imgDataLazySrcValues,
-        imdbDetails: {
-          imdbRating: imdbdata.imdbRating,
-          imdbGenres: imdbdata.imdbGenres,
-          details: imdbdata.details,
-        },
-
+        imdbDetails: imdbData || null,
       });
     }
   } catch (error) {
-    console.error("Error processing article:", error.message);
+    console.error("Error updating/creating database entry:", error.message);
   }
 }
+
 
 
 async function scrapePage(pageNumber) {
@@ -213,8 +287,7 @@ async function scrapePage(pageNumber) {
     $("article.post-item").each((index, element) => {
       const title = $(element).find("h3").text();
       const articleUrl = $(element).find("a").attr("href");
-      const image = $(element).find("img").attr("data-lazy-src");
-
+      const image = $(element).find("img").attr("data-src");
       articles.push({ title, url: articleUrl, image });
     });
 
@@ -226,7 +299,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 1) {
+async function processPages(startPage = 284) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i

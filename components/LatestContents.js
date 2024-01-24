@@ -63,7 +63,7 @@ const LatestContents = ({ data }) => {
         {data &&
           data.map((element, index) => (
             <Link
-            href={element.slug}
+              href={element.slug}
               key={index}
               className={`w-full h-96 bg-cover bg-center bg-no-repeat ${currentSlide === index ? 'block' : 'hidden'
                 }`}
@@ -78,13 +78,14 @@ const LatestContents = ({ data }) => {
                 />
               </div>
               <div
-                className={`absolute bottom-12 left-4 p-1 font-bold text-sm bg-opacity-50 ${getRatingColor(element.imdbDetails.imdbRating.rating)}`}
+                className={`absolute bottom-12 left-4 p-1 font-bold text-sm bg-opacity-50 ${getRatingColor(element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0)}`}
               >
+
                 <h1>
                   {element.title.replace(/Download/, "").trim()}
                 </h1>
-                <p>Rating: {element.imdbDetails.imdbRating.rating}</p>
-                <p>Votes: {element.imdbDetails.imdbRating.votes}</p>
+                <p>Rating: {element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0}</p>
+                <p>Votes: {element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.votes != null ? element.imdbDetails.imdbRating.votes : 0 : 0}</p>
               </div>
             </Link>
           ))}

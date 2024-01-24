@@ -7,6 +7,7 @@ const nextConfig = {
   images: {
     domains: [
       "vegamovies.dad",
+      "dotmovies.bet",
       "imgbb.ink"
     ],
   },

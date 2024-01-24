@@ -28,7 +28,7 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
     <>
       <div>
         <Link href="/data/contents">
-        <h2 className="text-lg text-white my-4">{collectionName}</h2>
+          <h2 className="text-lg text-white my-4">{collectionName}</h2>
         </Link>
       </div>
       <div className="relative">
@@ -52,10 +52,10 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
                           className="cropped-image hover:scale-95 rounded-lg"
                         />
                         <div
-                          className={`IMDB rounded-tl-lg absolute top-0 left-0 p-1 text-sm text-white bg-opacity-50 ${getRatingColor(element.imdbDetails.imdbRating.rating)}`}
+                          className={`absolute top-0 left-0 p-1 font-bold text-sm bg-opacity-50 rounded-tl-md ${getRatingColor(element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0)}`}
                         >
-                          <p>{element.imdbDetails.imdbRating.rating}</p>
-                          <p>{element.imdbDetails.imdbRating.votes}</p>
+                          <p>{element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0}</p>
+                          <p>{element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.votes != null ? element.imdbDetails.imdbRating.votes : 0 : 0}</p>
                         </div>
                       </div>
                       <p className="text-center font-light text-xs mt-[4%] md:text-sm ">{element.title}</p>

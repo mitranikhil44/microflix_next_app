@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import connectToDatabase from '@/lib/mongodb';
-import { updateContents } from '@/models/scrapeSchema';
+import { Contents } from '@/models/scrapeSchema2';
 
 export async function GET(req) {
 
@@ -29,10 +29,10 @@ export async function GET(req) {
     let response = []
 
     if (category === 'latest_contents') {
-      const sortedData = await updateContents.find({
+      const sortedData = await Contents.find({
         'imdbDetails.formattedDate': { $ne: null }, // Filter out documents with null formattedDate
       }).sort({
-        'imdbDetails.formattedDate': 1,
+        'imdbDetails.formattedDate': -1,
       }).skip((page - 1) * pageSize).limit(pageSize);
     
       response.push({
@@ -63,7 +63,7 @@ export async function GET(req) {
         // No specific filter for 'content' category
       }
 
-      const query = updateContents.find({ ...filterConditions }).sort({ updatedAt: 1 })
+      const query = Contents.find({ ...filterConditions }).sort({ updatedAt: 1 })
 
       // Apply pagination
       query.skip((page - 1) * pageSize).limit(pageSize);
@@ -112,7 +112,7 @@ export async function GET(req) {
     
 
       // Use the aggregation pipeline to get the desired data
-      const topData = await updateContents.aggregate(aggregationPipeline).exec();
+      const topData = await Contents.aggregate(aggregationPipeline).exec();
 
       response.push({
         data: topData,
