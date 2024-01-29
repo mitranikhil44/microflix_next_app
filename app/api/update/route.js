@@ -12,37 +12,21 @@ const connectToMongoDB = async () => {
 const updateDocuments = async () => {
     try {
         await connectToMongoDB();
-        const documents = await Contents.find({});
-        let updateCounter = 0;
-
-        for (const doc of documents) {
-            let contentRating = 0;
-
-            // Check if imdbDetails exists and is not null
-            if (doc.imdbDetails !== null || undefined && doc.imdbDetails.imdbRating !== null || undefined) {
-                const imdbRatingMatch = doc.content.match(/([\d.]+)\/10/);
-
-                if (imdbRatingMatch) {
-                    contentRating = parseFloat(imdbRatingMatch[1]);
-                } else {
-                    console.log(`No IMDb rating data available for document with _id ${doc._id}`);
-                }
-
-                // Update the nested field only if imdbDetails is not null
-                await Contents.updateOne(
-                    { _id: doc._id, "imdbDetails": { $ne: null } },
-                    { $set: { "imdbDetails.imdbRating.contentRating": contentRating } }
-                );
-
-                updateCounter++;
-                console.log(`Document with _id ${doc._id} updated. Total updates: ${updateCounter}`);
-            } else {
-                console.log(`No imdbDetails field or it's null for document with _id ${doc._id}`);
-            }
-        }
+        // Find the document by its _id and update the formattedDateObject field
+    const updatedContent = await Contents.findByIdAndUpdate(
+        contentId,
+        { $set: { 'imdbDetails.formattedDateObject': newFormattedDateObject } },
+        { new: true } // Return the updated document
+      );
+  
+      // Log the updated document
+      console.log('Updated content:', updatedContent);
+  
+      // Disconnect from the database
+      await mongoose.disconnect();
     } catch (error) {
-        console.error(error);
-    } finally {
+      console.error('Error updating content:', error);}
+      finally {
         mongoose.disconnect();
     }
 };

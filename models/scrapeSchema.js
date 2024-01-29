@@ -9,17 +9,14 @@ const contentSchema = new Schema({
     slug: String,
     content: String,
     contentSceens: [String],
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
     imdbDetails: {
         imdbRating: {
             rating: String,
             votes: String,
+            contentRating: String,
         },
         imdbGenres: String,
-        releaseDate: String,
+        formattedDateObject: String,
         formattedDate: String,
         countryOfOrigin: String,
         officialSite: String,
@@ -28,8 +25,12 @@ const contentSchema = new Schema({
         filmingLocations: String,
         productionCompanies: String,
     },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
-export const updateContents =
-    mongoose.models.update_contents ||
-    mongoose.model("update_contents", contentSchema);
+export const Contents =
+    mongoose.models.contents ||
+    mongoose.model("contents", contentSchema);

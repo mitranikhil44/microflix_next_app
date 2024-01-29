@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import connectToDatabase from '@/lib/mongodb';
-import { Contents } from '@/models/scrapeSchema2';
+import { Contents } from '@/models/scrapeSchema';
 
 export async function GET(req) {
 
@@ -30,28 +30,16 @@ export async function GET(req) {
 
     if (category === 'latest_contents') {
       const sortedData = await Contents.find()
+        .sort({ "imdbDetails.formattedDateObject": -1 }) // Use an object for sorting
         .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .lean(); // Optional: Use lean() for better performance if you don't need Mongoose features
-    
-      // Convert the formattedDateObject strings to Date objects for correct sorting
-      sortedData.forEach(item => {
-        item.imdbDetails.formattedDateObject = new Date(item.imdbDetails.formattedDateObject);
-      });
-    
-      // Sort the data based on the Date objects
-      sortedData.sort((a, b) => b.imdbDetails.formattedDateObject - a.imdbDetails.formattedDateObject);
-    
+        .limit(pageSize);
+
       response.push({
         data: sortedData,
         currentPage: page,
         pageSize,
       });
     }
-    
-    
-    
-    
 
     if (
       category === 'content_movies' ||
@@ -109,16 +97,16 @@ export async function GET(req) {
       // Define an aggregation pipeline to filter and sort the data
       const aggregationPipeline = [
         {
-            $sort: { "imdbDetails.imdbRating.rating": -1 }, 
+          $sort: { "imdbDetails.imdbRating.rating": -1 },
         },
         {
-            $skip: (page - 1) * pageSize, // Apply pagination
+          $skip: (page - 1) * pageSize, // Apply pagination
         },
         {
-            $limit: pageSize,
+          $limit: pageSize,
         },
-    ];
-    
+      ];
+
 
       // Use the aggregation pipeline to get the desired data
       const topData = await Contents.aggregate(aggregationPipeline).exec();

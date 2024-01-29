@@ -8,7 +8,8 @@ const nextConfig = {
     domains: [
       "vegamovies.dad",
       "dotmovies.bet",
-      "imgbb.ink"
+      "imgbb.ink",
+      "vegamovies.ngo"
     ],
   },
 };

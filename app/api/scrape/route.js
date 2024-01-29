@@ -1,10 +1,10 @@
 import axios from "axios";
 import cheerio from "cheerio";
 import connectToDatabase from "@/lib/mongodb";
-import { Contents } from "@/models/scrapeSchema2";
+import { Contents } from "@/models/scrapeSchema";
 
 const BASE_URL = "https://vegamovies.dad/page/";
-const TOTAL_PAGES = 20;
+const TOTAL_PAGES = 1010;
 
 const scrapeCode = async (url) => {
   try {
@@ -66,7 +66,7 @@ const scrapeImdbDetails = async (url) => {
       const formattedDate = releaseDateRegex.exec(formattedDateMatch)[1].trim();
       const dateObject = new Date(formattedDate);
       imdbDetails.formattedDate = formattedDate;
-      imdbDetails.formattedDateObject = `${dateObject.getDate()}-${dateObject.getMonth() + 1}-${dateObject.getFullYear()}`;
+      imdbDetails.formattedDateObject = dateObject.toISOString().split('T')[0];
     } else {
       console.log("No Release date information available");
     }
@@ -287,7 +287,7 @@ async function scrapePage(pageNumber) {
     $("article.post-item").each((index, element) => {
       const title = $(element).find("h3").text();
       const articleUrl = $(element).find("a").attr("href");
-      const image = $(element).find("img").attr("data-src");
+      const image = $(element).find("img").attr("data-lazy-src");
       articles.push({ title, url: articleUrl, image });
     });
 
@@ -299,7 +299,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 1) {
+async function processPages(startPage = 445) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i
