@@ -3,8 +3,8 @@ import cheerio from "cheerio";
 import connectToDatabase from "@/lib/mongodb";
 import { Contents } from "@/models/scrapeSchema";
 
-const BASE_URL = "https://vegamovies.dad/page/";
-const TOTAL_PAGES = 1010;
+const BASE_URL = "https://vegamovies.ong/page/";
+const TOTAL_PAGES = 1035;
 
 const scrapeCode = async (url) => {
   try {
@@ -176,59 +176,64 @@ function extractSearchableContent(contentTextArray) {
 
 async function processArticle(article) {
   const { url, title, image } = article;
+  const existingArticle = await Contents.findOne({ url });
 
-  try {
-    const response = await axios.get(url);
-    const $ = cheerio.load(response.data);
-
-    const contentElement = $("div.entry-content");
-    if (!contentElement.length) {
-      console.error("Content element not found for article:", title);
+    if (existingArticle) {
+      console.error("Article founded:", title);
       return;
     }
-
-    // Extract data-lazy-src values from img tags within p tags
-    const imgDataLazySrcValues = contentElement.find("p img")
+    try {
+      const response = await axios.get(url);
+      const $ = cheerio.load(response.data);
+      
+      const contentElement = $("div.entry-content");
+      if (!contentElement.length) {
+        console.error("Content element not found for article:", title);
+        return;
+      }
+      
+      // Extract data-lazy-src values from img tags within p tags
+      const imgDataLazySrcValues = contentElement.find("p img")
       .map((_, elem) => $(elem).attr("data-lazy-src"))
       .get();
-
-    const slug = title.replace(/[^\w\s]/g, "").replace(/\s+/g, "_").toLowerCase();
-
-    const contentTextArray = contentElement.find("p")
+      
+      const slug = title.replace(/[^\w\s]/g, "").replace(/\s+/g, "_").toLowerCase();
+      
+      const contentTextArray = contentElement.find("p")
       .map((_, e) => $(e).text().toLowerCase())
       .get();
 
-    const searchableContent = extractSearchableContent(contentTextArray);
-
-    // Search IMDb and get details
+      const searchableContent = extractSearchableContent(contentTextArray);
+      
+      // Search IMDb and get details
     const imdbData = await getIMDbDetails(searchableContent);
     
     // Remove p tags containing img tags
     contentElement.find("p:has(img)").remove();
-
+    
     const content = contentElement.html()
-      .replace(/Vegamovies.NL/g, (match, offset, input) => {
-        const srcIndex = input.lastIndexOf('src="', offset);
-
-        if (srcIndex === -1 || input.indexOf('"', srcIndex + 5) < offset) {
+    .replace(/Vegamovies.NL/g, (match, offset, input) => {
+      const srcIndex = input.lastIndexOf('src="', offset);
+      
+      if (srcIndex === -1 || input.indexOf('"', srcIndex + 5) < offset) {
           return "Microflix";
         } else {
           return match;
         }
       });
-
-    // Update or create database entry
-    await updateOrCreateDatabaseEntry({ url, title, image, slug, content, imgDataLazySrcValues, imdbData });
-  } catch (error) {
-    console.error("Error processing article:", error.message);
+      
+      // Update or create database entry
+      await updateOrCreateDatabaseEntry({ url, title, image, slug, content, imgDataLazySrcValues, imdbData });
+    } catch (error) {
+      console.error("Error processing article:", error.message);
+    }
   }
-}
-
-async function getIMDbDetails(searchableContent) {
-  try {
-    const imdbLinks = await searchIMDb(searchableContent);
-
-    if (imdbLinks && imdbLinks.length > 0) {
+  
+  async function getIMDbDetails(searchableContent) {
+    try {
+      const imdbLinks = await searchIMDb(searchableContent);
+      
+      if (imdbLinks && imdbLinks.length > 0) {
       return await scrapeImdbDetails(imdbLinks[0]);
     } else {
       return null;
@@ -272,8 +277,6 @@ async function updateOrCreateDatabaseEntry({ url, title, image, slug, content, i
   }
 }
 
-
-
 async function scrapePage(pageNumber) {
   const url = `${BASE_URL}${pageNumber}/`;
   console.log(`Scraping page no. ${pageNumber}`);
@@ -299,7 +302,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 445) {
+async function processPages(startPage = 1) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i

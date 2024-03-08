@@ -26,7 +26,8 @@ export async function GET(req) {
     if (!validCategories.includes(category)) {
       return Response.json({ error: 'Invalid category' }, { status: 400 });
     }
-    let response = []
+    let response = [];
+    const totalPageLength = await Contents.countDocuments({});
 
     if (category === 'latest_contents') {
       const sortedData = await Contents.find()
@@ -38,6 +39,7 @@ export async function GET(req) {
         data: sortedData,
         currentPage: page,
         pageSize,
+        totalPages: totalPageLength,
       });
     }
 
@@ -71,6 +73,7 @@ export async function GET(req) {
         data,
         currentPage: page,
         pageSize,
+        totalPages: totalPageLength,
       });
     }
 
@@ -115,6 +118,7 @@ export async function GET(req) {
         data: topData,
         currentPage: page,
         pageSize,
+        totalPages: totalPageLength,
       });
     }
 

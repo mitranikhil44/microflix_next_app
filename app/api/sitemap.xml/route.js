@@ -1,11 +1,11 @@
 import connectToDatabase from '@/lib/mongodb';
-import { updateContents } from '@/models/scrapeSchema';
+import { Contents } from '@/models/scrapeSchema';
 
 export async function GET(req) {
   await connectToDatabase();
 
   try {
-    const query = await updateContents.find({}, { slug: 1 }).exec();
+    const query = await Contents.find({}, { slug: 1 }).exec();
     const slugs = query.map((item) => item.slug);
     const sitemapXml = generateSitemapXml(slugs);
 

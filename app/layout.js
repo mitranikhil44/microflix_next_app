@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <div>
             <Navbar />
-            <div className="sm:gridClass mx-auto p-[3%]">
+            <div className="sm:gridClass mx-auto p-[3%] container sm:w-full">
               {children}
             </div>
             <div className="flex justify-center items-center flex-wrap">

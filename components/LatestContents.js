@@ -33,27 +33,28 @@ const LatestContents = ({ data }) => {
   const goToSlide = (slideIndex) => {
     setCurrentSlide(slideIndex);
   };
+  const windowWidth = window.innerWidth;
 
   const getRatingColor = (rating) => {
-    const imdbRating = parseFloat(rating);
+    const imdbRating = rating ? parseFloat(rating.rating) : 0;
 
     switch (true) {
       case imdbRating >= 9:
-        return 'text-green-900';
+        return 'bg-green-800';
       case imdbRating >= 8:
-        return 'text-green-700';
+        return 'bg-green-500';
       case imdbRating >= 7:
-        return 'text-green-500';
+        return "bg-yellow-700"
       case imdbRating >= 6:
-        return "text-yellow-700"
+        return "bg-orange-700"
       case imdbRating >= 5:
-        return "text-orange-700"
+        return 'bg-orange-500';
       case imdbRating >= 4:
-        return 'text-orange-500';
+        return "bg-red-500";
       case imdbRating >= 3:
-        return "text-red-500"
+        return "bg-red-800";
       default:
-        return "text-red-700"
+        return "bg-gray-500";
     }
   };
 
@@ -68,12 +69,11 @@ const LatestContents = ({ data }) => {
               className={`w-full h-96 bg-cover bg-center bg-no-repeat ${currentSlide === index ? 'block' : 'hidden'
                 }`}
             >
-              {console.log(element)}
               <div className="relative w-full h-[30rem]">
                 <Image
                   src={element.image}
                   alt={element.title}
-                  width={window.innerWidth - 20} height="10"
+                  width={windowWidth} height="10"
                   className='opacity-50'
                   objectFit="cover"
                 />

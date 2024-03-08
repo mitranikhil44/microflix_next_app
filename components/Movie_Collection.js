@@ -4,24 +4,25 @@ import Link from "next/link";
 
 const MoviesCollection = ({ data, collectionName, linkPath }) => {
   const getRatingColor = (rating) => {
-    const imdbRating = parseFloat(rating);
+    const imdbRating = rating ? parseFloat(rating.rating) : 0;
+
     switch (true) {
       case imdbRating >= 9:
-        return 'bg-green-900';
+        return 'bg-green-800';
       case imdbRating >= 8:
-        return 'bg-green-700';
-      case imdbRating >= 7:
         return 'bg-green-500';
-      case imdbRating >= 6:
+      case imdbRating >= 7:
         return "bg-yellow-700"
-      case imdbRating >= 5:
+      case imdbRating >= 6:
         return "bg-orange-700"
-      case imdbRating >= 4:
+      case imdbRating >= 5:
         return 'bg-orange-500';
+      case imdbRating >= 4:
+        return "bg-red-500";
       case imdbRating >= 3:
-        return "bg-red-500"
+        return "bg-red-800";
       default:
-        return "bg-red-700"
+        return "bg-gray-500";
     }
   };
   return (

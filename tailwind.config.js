@@ -31,6 +31,9 @@ module.exports = {
         translate_right_to_left: "translate_right_to_left 1s ease-in-out"
       },
       screens:{
+        "xxl": {min: "1980px"},
+        "xl": {min: "1560px"},
+        "smd": {min: "756px"},
         "xs": "475px",
         "xxs": "375px"
       },

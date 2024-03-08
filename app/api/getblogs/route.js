@@ -1,12 +1,12 @@
 import connectToDatabase from '@/lib/mongodb';
-import { updateContents } from '@/models/scrapeSchema';
+import { Contents } from '@/models/scrapeSchema';
 
 export async function GET(req) {
     try {
         await connectToDatabase(); // Establish the database connection
 
         const slug = req.nextUrl.searchParams.get("slug");
-        const hollywoodData = await updateContents.findOne({ slug });
+        const hollywoodData = await Contents.findOne({ slug });
 
         if (hollywoodData) {
             return Response.json({content: hollywoodData}, {status: 200});
