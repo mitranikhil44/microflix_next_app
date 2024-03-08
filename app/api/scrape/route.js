@@ -302,7 +302,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 1) {
+async function processPages(startPage = 73) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i

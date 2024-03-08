@@ -9,7 +9,8 @@ const nextConfig = {
       "vegamovies.dad",
       "dotmovies.bet",
       "imgbb.ink",
-      "vegamovies.ngo"
+      "vegamovies.ngo",
+      "vegamovies.ong"
     ],
   },
 };
