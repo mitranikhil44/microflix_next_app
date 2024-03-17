@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <>
       <header>
-        {/* <LatestContents data={latestContents} /> */}
+        <LatestContents data={latestContents} />
       </header>
       <section>
         <MoviesCollection

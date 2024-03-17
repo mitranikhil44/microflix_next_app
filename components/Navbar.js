@@ -10,12 +10,15 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(false); 
   const showLoading = async () => {
     setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }
   return (
     <>
       {isLoading && <LoadingSpinner />}
       <div className="px-5 py-2 flex justify-between items-center sticky top-0 z-50 bg-black">
-        <Link href="/" className="flex items-center" onClick={showLoading}>
+        <Link href="/" className="flex items-center" onClick={(showLoading)}>
           <div className="h-10 w-10">
             <Image src={Logo} alt="Logo" />
           </div>

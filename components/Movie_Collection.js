@@ -29,7 +29,7 @@ const MoviesCollection = ({ data, collectionName, linkPath }) => {
     <>
       <div>
         <Link href="/data/contents">
-          <h2 className="text-lg text-white my-4">{collectionName}</h2>
+          <h2 className="text-lg sm:text-sm text-white my-4">{collectionName}</h2>
         </Link>
       </div>
       <div className="relative">

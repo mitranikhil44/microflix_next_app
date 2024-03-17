@@ -27,19 +27,19 @@ export async function GET(req) {
       return Response.json({ error: 'Invalid category' }, { status: 400 });
     }
     let response = [];
-    const totalPageLength = await Contents.countDocuments({});
 
     if (category === 'latest_contents') {
       const sortedData = await Contents.find()
-        .sort({ "imdbDetails.formattedDateObject": -1 }) // Use an object for sorting
+        .sort({ "imdbDetails.formattedDateObject": -1 })
         .skip((page - 1) * pageSize)
         .limit(pageSize);
+        const totalPages = Math.ceil(await Contents.countDocuments({}) / pageSize);
 
       response.push({
         data: sortedData,
         currentPage: page,
         pageSize,
-        totalPages: totalPageLength,
+        totalPages,
       });
     }
 
@@ -66,14 +66,15 @@ export async function GET(req) {
 
       // Apply pagination
       query.skip((page - 1) * pageSize).limit(pageSize);
-
+      const totalCount = await Contents.countDocuments(filterConditions);
+      const totalPages = Math.ceil(totalCount / pageSize);
       const data = await query.exec();
 
       response.push({
         data,
         currentPage: page,
         pageSize,
-        totalPages: totalPageLength,
+        totalPages,
       });
     }
 
@@ -86,43 +87,45 @@ export async function GET(req) {
     ) {
       // Fetch data for "top_content" categories here
       let topFilterConditions = {};
-
+    
       if (category === 'top_content_movies') {
         topFilterConditions.title = { $not: /season/i };
       } else if (category === 'top_content_seasons') {
         topFilterConditions.title = { $regex: /season/i };
       } else if (category === 'top_content_adult') {
         topFilterConditions.title = { $regex: /18\+/i };
-      } else if (category === 'top_contents') {
-        // No specific filter for 'top_content' category
       }
-
+      // No need for else if (category === 'top_contents') as it doesn't have specific filter conditions
+    
       // Define an aggregation pipeline to filter and sort the data
       const aggregationPipeline = [
+        {
+          $match: topFilterConditions, // Adding $match stage to filter based on conditions
+        },
         {
           $sort: { "imdbDetails.imdbRating.rating": -1 },
         },
         {
-          $skip: (page - 1) * pageSize, // Apply pagination
+          $skip: (page - 1) * pageSize,
         },
         {
           $limit: pageSize,
         },
       ];
-
-
+    
       // Use the aggregation pipeline to get the desired data
       const topData = await Contents.aggregate(aggregationPipeline).exec();
-
+      const totalCount = await Contents.countDocuments(topFilterConditions);
+      const totalPages = Math.ceil(totalCount / pageSize);
+    
       response.push({
         data: topData,
         currentPage: page,
         pageSize,
-        totalPages: totalPageLength,
+        totalPages,
       });
     }
-
-
+    
 
     // Only respond with data if one of the valid categories matched
     if (response.length > 0) {

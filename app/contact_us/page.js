@@ -1,8 +1,11 @@
 "use client"
+
 import React, { useState } from "react";
+import LoadingSpinner from "../../components/Loading";
 
 function Contact() {
-  const apiKey = process.env.API_KEY || "http://localhost:3000/";
+  const [isLoading, setIsLoading] = useState(false);
+  const apiKey = process.env.API_KEY || "https:/microflix.vercel.app/";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,7 +23,7 @@ function Contact() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-        timeout: 15000 ,
+        timeout: 15000,
       });
 
       if (response.ok) {
@@ -49,6 +52,7 @@ function Contact() {
 
   return (
     <form onSubmit={handleSubmit} className="border rounded-lg w-full flex items-center justify-center my-12">
+      {isLoading && <LoadingSpinner />}
       <div className="shadow rounded py-12 lg:px-28 px-8">
         <p className="md:text-3xl text-xl font-bold leading-7 text-center text-gray-100">Let’s chat and get a quote!</p>
         <div className="md:flex items-center mt-12">

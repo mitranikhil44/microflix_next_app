@@ -2,8 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import LoadingSpinner from "./Loading";
 
 const LatestContents = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const timerRef = useRef(null);
 
@@ -60,6 +62,8 @@ const LatestContents = ({ data }) => {
 
   return (
     <div className="relative overflow-hidden h-96">
+      {isLoading && <LoadingSpinner />}
+      <h2 className="text-lg sm:text-sm text-white my-4">Latest Contents</h2>
       <div className="flex transition-transform duration-500 ease-in-out transform">
         {data &&
           data.map((element, index) => (

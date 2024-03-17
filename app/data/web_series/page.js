@@ -1,41 +1,34 @@
+
 import React from 'react';
 import ContentList from '../../../components/ContentList';
+import PaginationButton from '../../../components/other/PaginationButton';
 
-const Movies = async () => {
-  const response = await serverSideProps();
-  const data = response.props.initialContents[0].data
+const WebSeriesContents = async () => {
+  const response = await getWebSeriesContentsData();
+  const data = response.webSeriesContents;
+  const totalPages = data[0].totalPages;
+
   return (
     <div>
-      <ContentList category="content_seasons" initialContents={data} />
+      <ContentList contents={data} />
+      <PaginationButton totalPages={totalPages} page={1} category={"web_series"} />
     </div>
   );
 };
 
-async function fetchData(apiKey) {
-  const response = await fetch(`${apiKey}/api/blogs/?category=content_seasons&page=1`, {cache: 'no-cache'});
-  const data = await response.json();
-  return data;
-}
-
-export async function serverSideProps() {
+export async function getWebSeriesContentsData() {
   const apiKey = process.env.API_KEY;
   try {
-    const movies = await fetchData(apiKey);
+    const response = await fetch(`${apiKey}/api/blogs/?category=content_seasons&page=1`, { cache: 'no-cache' });
+    const webSeriesContents = await response.json();
     return {
-      props: {
-        initialContents: movies,
-      },
+      webSeriesContents,
     };
   } catch (error) {
-    console.error('Error:', error);
     return {
-      props: {
-        initialContents: [], // Provide a default empty array if there's an error
-      },
+      webSeriesContents: [],
     };
   }
 }
 
-export default Movies;
-
-
+export default WebSeriesContents;

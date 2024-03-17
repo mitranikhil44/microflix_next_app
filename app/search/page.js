@@ -10,8 +10,8 @@ const search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -48,7 +48,7 @@ const search = () => {
   };
 
   const fetchSuggestions = async (query) => {
-    const apiKey = process.env.API_KEY || "https://microflix.vercel.app/";
+    const apiKey = process.env.API_KEY || "https:/microflix.vercel.app/";
     try {
       const response = await fetch(`${apiKey}api/search_result/?query=${query}&page=1`);
       const data = await response.json()
@@ -82,9 +82,8 @@ const search = () => {
   
 
   const handleSuggestionClick = async (suggestion) => {
-    await setSelectedSuggestion(suggestion);
     await setSearchTerm(suggestion);
-    await submit();
+    await pushData();
   };
 
   useEffect(() => {

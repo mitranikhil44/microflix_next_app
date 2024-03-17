@@ -3,7 +3,6 @@ import Image from "next/image";
 export default async function Content_Post({ params }) {
   let response = await getContentData(params);
   const content = response.content;
-
   function createMarkup(content) {
     return { __html: content };
   }
