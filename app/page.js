@@ -1,21 +1,42 @@
-import React from "react";
-import MoviesCollection from "../components/Movie_Collection";
-import LatestContents from "../components/LatestContents";
+import FetchSSRData from '@/components/other/FetchSSRData';
+import dynamic from 'next/dynamic';
+
+const MoviesCollection = dynamic(() => import("@/components/Movie_Collection"), {
+  ssr: false,
+});
+const LatestContents = dynamic(() => import("@/components/LatestContents"), {
+  ssr: false,
+});
 
 export default async function Home() {
-  const contentsData = await fetchContents("contents");
-  const contents = contentsData[0].data
-  const latestData = await fetchContents("latest_contents");
-  const latestContents = latestData[0].data
+  const page = 1;
+  const { contents: contentsData } = await FetchSSRData(page, "contents");
+  const { contents: latestContentsData } = await FetchSSRData(page, "latest_contents");
+  const { contents: moviesContentData } = await FetchSSRData(page, "content_movies");
+  const { contents: webSeriesContentData } = await FetchSSRData(page, "content_seasons");
+  const { contents: adultContentsData } = await FetchSSRData(page, "content_adult");
+  
   return (
     <>
       <header>
-        <LatestContents data={latestContents} />
+        <LatestContents data={latestContentsData[0].data} />
       </header>
       <section>
         <MoviesCollection
-          data={contents}
+          data={contentsData[0].data}
           collectionName="Contents"
+        />
+        <MoviesCollection
+          data={moviesContentData[0].data}
+          collectionName="Movies Contents"
+        />
+        <MoviesCollection
+          data={webSeriesContentData[0].data}
+          collectionName="Web Series Content"
+        />
+        <MoviesCollection
+          data={adultContentsData[0].data}
+          collectionName="Adult Content"
         />
       </section>
       {/* Google tag (gtag.js) */}
@@ -30,11 +51,4 @@ export default async function Home() {
       </script>
     </>
   );
-}
-
-const fetchContents = async (category) => {
-  const apiKey = process.env.API_KEY
-  const response = await fetch(`${apiKey}api/blogs/?category=${category}&page=1`, { cache: "no-store" });
-  const data = await response.json();
-  return data
 }

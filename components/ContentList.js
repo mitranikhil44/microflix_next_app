@@ -47,10 +47,13 @@ const ContentList = ({ contents }) => {
             <Link key={index + 1} href={`/${element.slug}`} onClick={showLoading} className='p-4 hover:scale-110 '>
               <div className="to-black relative overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out ">
                 <div className="relative overflow-hidden flex items-center justify-center">
-                  <Image width="144" height="144"
+                  <Image
+                    width={144}
+                    height={144}
                     src={element.image || defaultLogo}
-                    alt="Image"
-                    className="object-cover hover:scale-110 overflow-hidden rounded-lg"
+                    alt={element.title.replace(/Download/, "").trim()}
+                    className="object-cover hover:scale-110 overflow-hidden rounded-lg w-auto h-auto"
+                    style={{ clipPath: 'polygon(0 10%, 100% 10%, 100% 100%, 0% 100%)' }}
                   />
                   <div
                     className={`IMDB rounded-tl-lg absolute top-0 left-0 p-1 text-sm text-white bg-opacity-50 ${getRatingColor(

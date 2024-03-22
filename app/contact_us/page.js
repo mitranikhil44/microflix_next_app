@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
-import LoadingSpinner from "../../components/Loading";
+import LoadingSpinner from "@/components/Loading";
 
 function Contact() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ function Contact() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-        timeout: 15000,
+        timeout: 15000, cache: "reload"
       });
 
       if (response.ok) {

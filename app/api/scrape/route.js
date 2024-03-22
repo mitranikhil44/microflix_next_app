@@ -4,7 +4,7 @@ import connectToDatabase from "@/lib/mongodb";
 import { Contents } from "@/models/scrapeSchema";
 
 const BASE_URL = "https://vegamovies.ong/";
-const TOTAL_PAGES = 2;
+const TOTAL_PAGES = 3;
 
 const scrapeCode = async (url) => {
   try {
@@ -302,7 +302,7 @@ async function scrapePage(pageNumber) {
   }
 }
 
-async function processPages(startPage = 0) {
+async function processPages(startPage = 1) {
   const pageNumbers = Array.from(
     { length: TOTAL_PAGES },
     (_, i) => startPage + i

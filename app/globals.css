@@ -1,6 +1,6 @@
 @tailwind base;
 @tailwind components;
-
+@tailwind utilities;
 * {
   padding: 0px;
   margin: 0px;
@@ -58,7 +58,6 @@ body {
   }
 }
 
-
 .contentClass div h2 a {
   display: flex;
   justify-content: center;
@@ -90,5 +89,3 @@ body {
     height: 24rem;
   }
 }
-
-@tailwind utilities;

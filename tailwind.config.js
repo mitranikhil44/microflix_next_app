@@ -7,7 +7,6 @@ module.exports = {
  
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/components/Navbar.js"
   ],
   theme: {
     extend: {

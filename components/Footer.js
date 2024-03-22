@@ -21,7 +21,7 @@ const Footer = () => {
           <Link href="/data/web_series" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>Web Series</Link>
           <div className='hidden xs:block '>
             <Link href="/data/contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>Contents</Link>
-            <Link href="/data/18+_contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>18+ Contents</Link>
+            <Link href="/data/adult_contents" className="mr-3 md:mr-5 xl:mr-8 hover:text-yellow-500" onClick={showLoading}>18+ Contents</Link>
           </div>
 
           {/* Dropdown Buttons */}
@@ -33,7 +33,7 @@ const Footer = () => {
             </button>
             <ul className="absolute hidden overflow-hidden bottom-6 rounded-md bg-inherit bg-yellow-950 text-white group-hover:block z-10 w-24 xxs:w-32 ">
               <Link href="/data/contents" className="block p-2" onClick={showLoading}>Contents</Link>
-              <Link href="/data/18+_contents" className="block p-2" onClick={showLoading}>18+ Contents</Link>
+              <Link href="/data/adult_contents" className="block p-2" onClick={showLoading}>18+ Contents</Link>
             </ul>
           </div>
 
@@ -44,7 +44,7 @@ const Footer = () => {
             </button>
             <ul className="absolute hidden overflow-hidden bottom-6 rounded-md bg-yellow-950 text-white group-hover:block z-10 w-24 xxs:w-32 ">
               <Link href="/data/top_contents" className="block p-2" onClick={showLoading}>Top Contents</Link>
-              <Link href="/data/top_18+_contents" className="block p-2" onClick={showLoading}>Top 18+ Contents</Link>
+              <Link href="/data/top_adult_contents" className="block p-2" onClick={showLoading}>Top 18+ Contents</Link>
               <Link href="/data/top_movies" className="block p-2" onClick={showLoading}>Top Movies</Link>
               <Link href="/data/top_web_series" className="block p-2" onClick={showLoading}>Top TV Series</Link>
             </ul>

@@ -6,16 +6,14 @@ const DynamicContentList = dynamic(() => import('@/components/ContentList'), {
   ssr: false,
 });
 
-export default async function PageContent({ params }) {
+export default async function AdultPageContent({ params }) {
   const { page } = params;
-  const { contents } = await FetchSSRData(page, "contents");
+  const { contents } = await FetchSSRData(page, "content_adult");
   const totalPages = contents[0].totalPages;
-
   return (
     <>
-      <DynamicContentList category="contents" contents={contents} />
-      <PaginationButton totalPages={totalPages} page={page} category={"contents"} />
+     <DynamicContentList contents={contents} />
+     <PaginationButton totalPages={totalPages} page={page} category={"adult_contents"} />
     </>
   );
 }
-

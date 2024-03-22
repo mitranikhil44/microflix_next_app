@@ -1,15 +1,16 @@
 "use client"
-import Modal from '../../components/Modal';
+
+import Modal from '@/components/Modal';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect, useCallback } from 'react';
-import LoadingSpinner from '../../components/Loading';
+import LoadingSpinner from '@/components/Loading';
 
 const search = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState('');
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -17,7 +18,7 @@ const search = () => {
     (name, value) => {
       const params = new URLSearchParams(searchParams)
       params.set(name, value)
- 
+
       return params.toString()
     },
     [searchParams]
@@ -35,8 +36,8 @@ const search = () => {
   const showLoading = async () => {
     setIsLoading(true)
     setTimeout(() => {
-      setIsLoading(false); 
-    }, 4000); 
+      setIsLoading(false);
+    }, 4000);
   }
 
   const handleInputChange = async (e) => {
@@ -48,9 +49,9 @@ const search = () => {
   };
 
   const fetchSuggestions = async (query) => {
-    const apiKey = process.env.API_KEY || "https:/microflix.vercel.app/";
+    const apiKey = process.env.API_KEY || "http://localhost:3000/";
     try {
-      const response = await fetch(`${apiKey}api/search_result/?query=${query}&page=1`);
+      const response = await fetch(`${apiKey}api/search_result/?query=${query}&page=1`, {cache:"reload"});
       const data = await response.json()
       if (Array.isArray(data.result.data)) {
         const titles = data.result.data.map(item => item.title);
@@ -72,14 +73,14 @@ const search = () => {
       pushData();
     }
   };
-  
+
   const pushData = async () => {
     await router.push('/search_result' + '?' + createQueryString('query', searchTerm));
     setSearchTerm('');
     closeModal();
   };
- 
-  
+
+
 
   const handleSuggestionClick = async (suggestion) => {
     await setSearchTerm(suggestion);
@@ -125,7 +126,7 @@ const search = () => {
                 key={index}
                 className={`cursor-pointer ${suggestion === selectedSuggestion ? 'text-blue-500' : 'text-gray-400'
                   } hover:text-white`}
-                onClick={async() => await handleSuggestionClick(suggestion)}
+                onClick={async () => await handleSuggestionClick(suggestion)}
               >
                 {suggestion}
                 <hr className='m-[1%]' />
