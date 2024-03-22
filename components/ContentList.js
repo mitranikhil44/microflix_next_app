@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import Image from "next/image";
 import LoadingSpinner from "./Loading";
-import defaultLogo from '../public/microflix_logo.png'
+import defaultLogo from '@/public/microflix_logo.png'
 
 const ContentList = ({ contents }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const ContentList = ({ contents }) => {
   };
 
   const getRatingColor = (rating) => {
-    const imdbRating = rating ? parseFloat(rating.rating) : 0;
+    const imdbRating = rating ? parseFloat(rating) : 0;
     switch (true) {
       case imdbRating >= 9:
         return "bg-green-800";

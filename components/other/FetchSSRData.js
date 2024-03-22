@@ -6,7 +6,13 @@ const FetchSSRData = async (page, cateogry) => {
 export async function ContentData(page, cateogry) {
   const apiKey = process.env.API_KEY;
   try {
-    const response = await fetch(`${apiKey}/api/blogs/?category=${cateogry}&page=${page}`, { cache: "reload" });
+    const response = await fetch(`${apiKey}/api/blogs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      cache: 'reload'
+    });
     const contents = await response.json();
     return {
       contents,

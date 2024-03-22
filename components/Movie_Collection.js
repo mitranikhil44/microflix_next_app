@@ -10,7 +10,7 @@ import { FreeMode, Pagination } from 'swiper/modules';
 
 const MoviesCollection = ({ data, collectionName, linkPath }) => {
   const getRatingColor = (rating) => {
-    const imdbRating = rating ? parseFloat(rating.rating) : 0;
+    const imdbRating = rating ? parseFloat(rating) : 0;
 
     switch (true) {
       case imdbRating >= 9:

@@ -9,6 +9,7 @@ import 'swiper/css/effect-coverflow';
 import LoadingSpinner from "./Loading";
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import defaultLogo from '@/public/microflix_logo.png';
 import { Autoplay, EffectCoverflow, Pagination } from 'swiper/modules';
 
 
@@ -16,8 +17,7 @@ const LatestContents = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getRatingColor = (rating) => {
-    const imdbRating = rating ? parseFloat(rating.rating) : 0;
-
+    const imdbRating = rating ? parseFloat(rating) : 0;
     switch (true) {
       case imdbRating >= 9:
         return 'bg-green-800';
@@ -93,15 +93,15 @@ const LatestContents = ({ data }) => {
                     <p className="text-xs">Votes: {element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.votes != null ? element.imdbDetails.imdbRating.votes : 0 : 0}</p>
                   </div>
                 </div>
-                <div className="h-[50vh] xl:h-[40vh] lg:h-[35vh]">
+                <div className="h-[45vh] xl:h-[40vh] lg:h-[35vh]">
                   <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                     <Image
-                      src="https://vegamovies.ong/wp-content/uploads/2022/07/Superman-and-Lois-Hindi-Fan-dub-165x248.jpg"
+                      src={element.image || defaultLogo}
                       sizes="(max-width: 165px) 100vw, (max-width: 768px) 50vw, 33vw"
                       alt={element.title.replace(/Download/, "").trim()}
                       objectFit="cover"
                       layout="fill"
-                      priority 
+                      priority
                     />
                   </div>
                 </div>

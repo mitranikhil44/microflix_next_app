@@ -5,7 +5,6 @@ import LoadingSpinner from "@/components/Loading";
 
 function Contact() {
   const [isLoading, setIsLoading] = useState(false);
-  const apiKey = process.env.API_KEY || "https:/microflix.vercel.app/";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,7 +16,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${apiKey}api/postcontact`, {
+      const response = await fetch(`/api/postcontact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

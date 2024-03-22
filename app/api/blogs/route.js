@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import connectToDatabase from '@/lib/mongodb';
 import { Contents } from '@/models/scrapeSchema';
 
-export async function GET(req) {
+export async function POST(req) {
 
   await connectToDatabase();
   const searchParams = req.nextUrl.searchParams;

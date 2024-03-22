@@ -52,7 +52,13 @@ export async function getContentData(params) {
   const apiKey = process.env.API_KEY;
   try {
     const { slug } = params;
-    const data = await fetch(`${apiKey}api/getblogs/?slug=${slug}`);
+    const data = await fetch(`${apiKey}api/getblogs/?slug=${slug}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      cache: 'reload'
+    });
     const myContent = await data.json();
     return myContent;
   } catch (error) {
