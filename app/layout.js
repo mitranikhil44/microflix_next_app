@@ -1,7 +1,8 @@
 import './globals.css'
 import dynamic from 'next/dynamic';
 import { Inter } from 'next/font/google';
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const Navbar = dynamic(() => import("@/components/Navbar"), {
   ssr: false,
 });
@@ -64,6 +65,7 @@ export default function RootLayout({ children }) {
             <div className="sm:gridClass mx-auto p-[3%] container sm:w-full">
               {children}
               <Analytics />
+              <SpeedInsights />
             </div>
             <div className="flex justify-center items-center flex-wrap">
               <div id="container-8a8462267705e39989e95218ff6f6dae"></div>
