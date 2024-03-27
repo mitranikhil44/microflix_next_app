@@ -42,7 +42,7 @@ const ContentList = ({ contents }) => {
     <div>
       {isLoading && <LoadingSpinner />}
       <div>
-        <div className="grid grid-cols-2 mt-4 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-hidden">
+        <div className="grid grid-cols-2 mt-4 gap-4 xs:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-hidden">
           {contents[0].data && contents[0].data.map((element, index) => (
             <Link key={index + 1} href={`/${element.slug}`} onClick={showLoading} className='p-4 hover:scale-110 '>
               <div className="to-black relative overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out ">

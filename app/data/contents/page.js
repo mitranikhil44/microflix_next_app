@@ -9,7 +9,7 @@ const DynamicContentList = dynamic(() => import('@/components/ContentList'), {
 const Contents = async () => {
   const page = 2;
   const { contents } = await FetchSSRData(page, "contents");
-  const totalPages = contents[0].totalPages;
+  const totalPages = contents[0]?.totalPages;
 
   return (
     <div>

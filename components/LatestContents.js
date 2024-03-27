@@ -41,9 +41,11 @@ const LatestContents = ({ data }) => {
   return (
     <div className="relative h-auto">
       {isLoading && <LoadingSpinner />}
-      <h2 className="text-3xl xl:text-2xl md:text-xl smd:text-lg sm:text-sm text-white my-4">Latest Contents</h2>
+      <h2 className="xl:text-3xl lg:text-2xl md:text-xl smd:text-lg text-sm text-white my-4">
+        Latest Contents
+      </h2>
       <Swiper
-        effect={'coverflow'}
+        effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
         loop={true}
@@ -51,13 +53,12 @@ const LatestContents = ({ data }) => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        spaceBetween={10}
         breakpoints={{
-          600: { slidesPerView: 2 },
-          756: { slidesPerView: 3 },
-          1080: { slidesPerView: 4 },
-          1560: { slidesPerView: 5 },
-          1984: { slidesPerView: 6 },
+          320: { slidesPerView: 2, spaceBetween: 1 },
+          600: {slidesPerView: 2, spaceBetween: 5},
+          756: { slidesPerView: 3, spaceBetween: 10 }, 
+          1080: { slidesPerView: 4, spaceBetween: 15 },
+          1560: { slidesPerView: 5, spaceBetween: 20 },
         }}
         coverflowEffect={{
           rotate: 50,
@@ -77,33 +78,48 @@ const LatestContents = ({ data }) => {
           data.map((element, index) => (
             <SwiperSlide key={element._id}>
               <Link href={element.slug} className="h-auto">
-                <div className='absolute bottom-[4%] p-[2%] z-10'>
+                <div className="absolute bottom-0 p-[2%] z-10 text-xs bg-black bg-opacity-70">
                   <div className="text" data-swiper-parallax="-100">
-                    <p>
-                      {element.title.replace(/Download/, "").trim()}
-                    </p>
+                    <p>{element.title.replace(/Download/, "").trim()}</p>
                   </div>
                   <div className="title" data-swiper-parallax="-200">
                     <div className="flex items-center">
                       <p className="mr-2">Rating:</p>
-                      <p className={`rounded px-2 py-1 text-xs ${getRatingColor(element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0)}`}>
-                        {element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.rating != null ? element.imdbDetails.imdbRating.rating : 0 : 0}
+                      <p
+                        className={`rounded px-2 py-1 text-xs ${getRatingColor(
+                          element.imdbDetails && element.imdbDetails.imdbRating
+                            ? element.imdbDetails.imdbRating.rating != null
+                              ? element.imdbDetails.imdbRating.rating
+                              : 0
+                            : 0
+                        )}`}
+                      >
+                        {element.imdbDetails && element.imdbDetails.imdbRating
+                          ? element.imdbDetails.imdbRating.rating != null
+                            ? element.imdbDetails.imdbRating.rating
+                            : 0
+                          : 0}
                       </p>
                     </div>
-                    <p className="text-xs">Votes: {element.imdbDetails && element.imdbDetails.imdbRating ? element.imdbDetails.imdbRating.votes != null ? element.imdbDetails.imdbRating.votes : 0 : 0}</p>
+                    <p className="text-xs">
+                      Votes:{" "}
+                      {element.imdbDetails && element.imdbDetails.imdbRating
+                        ? element.imdbDetails.imdbRating.votes != null
+                          ? element.imdbDetails.imdbRating.votes
+                          : 0
+                        : 0}
+                    </p>
                   </div>
                 </div>
-                <div className="h-[45vh] xl:h-[40vh] lg:h-[35vh]">
-                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                    <Image
-                      src={element.image || defaultLogo}
-                      sizes="(max-width: 165px) 100vw, (max-width: 768px) 50vw, 33vw"
-                      alt={element.title.replace(/Download/, "").trim()}
-                      objectFit="cover"
-                      layout="fill"
-                      priority
-                    />
-                  </div>
+                <div className="h-full">
+                  <Image
+                    src={element.image || defaultLogo}
+                    className="w-full h-full object-contain clip-path box-content"
+                    alt={element.title.replace(/Download/, "").trim()}
+                    width={240}
+                    height={240}
+                    priority
+                  />
                 </div>
               </Link>
             </SwiperSlide>

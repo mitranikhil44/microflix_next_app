@@ -9,7 +9,7 @@ const DynamicContentList = dynamic(() => import('@/components/ContentList'), {
 const TopMoviesContentPages = async ({ params }) => {
   const { page } = params
   const { contents } = await FetchSSRData(page, "top_content_movies");
-  const totalPages = contents[0].totalPages;
+  const totalPages = contents[0]?.totalPages;
 
   return (
     <div>
