@@ -1,5 +1,6 @@
 import FetchSSRData from '@/components/other/FetchSSRData';
 import dynamic from 'next/dynamic';
+import Script from "next/script";
 
 const MoviesCollection = dynamic(() => import("@/components/Movie_Collection"), {
   ssr: false,
@@ -19,36 +20,40 @@ export default async function Home() {
   return (
     <>
       <header>
-        <LatestContents data={latestContentsData[0].data} />
+        <LatestContents data={latestContentsData[0]?.data} />
       </header>
       <section>
         <MoviesCollection
-          data={contentsData[0].data}
+          data={contentsData[0]?.data}
           collectionName="Contents"
         />
         <MoviesCollection
-          data={moviesContentData[0].data}
+          data={moviesContentData[0]?.data}
           collectionName="Movies Contents"
         />
         <MoviesCollection
-          data={webSeriesContentData[0].data}
+          data={webSeriesContentData[0]?.data}
           collectionName="Web Series Content"
         />
         <MoviesCollection
-          data={adultContentsData[0].data}
+          data={adultContentsData[0]?.data}
           collectionName="Adult Content"
         />
       </section>
       {/* Google tag (gtag.js) */}
-      {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-80H6K0RCMY"></script>
-      <script>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-80H6K0RCMY"
+        strategy="afterInteractive"
+      />
+      <Script>
         {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-80H6K0RCMY');
-        `}
-      </script> */}
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-80H6K0RCMY');
+          `}
+      </Script>
     </>
   );
 }
