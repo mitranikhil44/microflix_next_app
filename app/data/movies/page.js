@@ -3,7 +3,7 @@ import FetchSSRData from '@/components/other/FetchSSRData';
 import dynamic from 'next/dynamic';
 
 const DynamicContentList = dynamic(() => import('@/components/ContentList'), {
-  ssr: false,
+  ssr: true,
 });
 
 const MoviesContent = async () => {
