@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic';
 import Script from "next/script";
 
 const MoviesCollection = dynamic(() => import("@/components/Movie_Collection"), {
-  ssr: false,
+  ssr: true,
 });
 const LatestContents = dynamic(() => import("@/components/LatestContents"), {
-  ssr: false,
+  ssr: true,
 });
 
 export default async function Home() {
