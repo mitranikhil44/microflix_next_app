@@ -13,7 +13,7 @@ const contentSchema = new Schema({
     imdbDetails: {
         imdbName: String,
         imdbPosterLink: [{
-            url: String,
+            url: String, 
             width: String,
         }], 
         imdbRating: {

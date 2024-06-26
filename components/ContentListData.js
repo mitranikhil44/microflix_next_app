@@ -6,7 +6,7 @@ const DynamicContentList = dynamic(() => import('@/components/ContentList'), {
   ssr: true,
 });
 
-const Contents = async () => {
+const Contents = async () => { 
   const page = 1;
   const { contents } = await FetchSSRData(page, "contents");
   const totalPages = contents[0]?.totalPages;
